@@ -61,10 +61,6 @@ bookdown::render_book("index.Rmd",
 
 
 
-# HiQBioDiv SDM Results Template
-
-Template repository for HiQBioDiv species-distribution modelling result books.
-
 ## Repository structure
 
 - `book/` — Bookdown source
