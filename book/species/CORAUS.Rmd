@@ -30,6 +30,7 @@ render_expert_scores(species_result)
 
 
 
+
 **Šo sadaļu aizpildām manuāli no ekspertu aptaujām**
 
 
@@ -63,6 +64,7 @@ Expert: Andris Čeirāns
 
 
 
+
 <!-- END USER:expert_evaluation -->
 
 ```{r, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
@@ -75,6 +77,7 @@ render_prioritization_summary(species_result)
 ### Version evolution {-}
 
 <!-- BEGIN USER:version_evolution -->
+
 
 
 
@@ -306,6 +309,7 @@ observation filtering.
 - variable permutation importance ensured at at least 1% if not affecting TSS
 
 - ensuring bottom limitation of the bias layer at 10% of the layers global average
+
 
 
 

@@ -29,6 +29,7 @@ render_expert_scores(species_result)
 
 
 
+
 **Šo sadaļu aizpildām manuāli no ekspertu aptaujām**
 
 
@@ -57,6 +58,7 @@ Expert: Andris Čeirāns
 
 
 
+
 <!-- END USER:expert_evaluation -->
 
 ```{r, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
@@ -69,6 +71,7 @@ render_prioritization_summary(species_result)
 ### Version evolution {-}
 
 <!-- BEGIN USER:version_evolution -->
+
 
 
 
@@ -283,6 +286,7 @@ if (knitr::is_html_output()) {
   
 - LULC change since the year of observation until the year 2024 are not used in 
 observation filtering.
+
 
 
 

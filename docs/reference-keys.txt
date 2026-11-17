@@ -1,4 +1,3 @@
-hiqbiodiv-sdm-results-template
 repository-structure
 creating-a-new-result-repository
 terminology-and-acronyms
