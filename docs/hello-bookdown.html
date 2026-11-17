@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>1 Hello bookdown | HiQBioDiv species distribution models</title>
+  <meta name="description" content="Species distribution modelling results for a HiQBioDiv taxonomic group." />
+  <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="1 Hello bookdown | HiQBioDiv species distribution models" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Species distribution modelling results for a HiQBioDiv taxonomic group." />
+  <meta name="github-repo" content="HiQBioDiv/HiQBioDiv_SDMs_ResultTemplate" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="1 Hello bookdown | HiQBioDiv species distribution models" />
+  
+  <meta name="twitter:description" content="Species distribution modelling results for a HiQBioDiv taxonomic group." />
+  
+
+<meta name="author" content="HiQBioDiv" />
+
+
+<meta name="date" content="2026-11-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="cross.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/codefolding-lua-1.1/codefolding-lua.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">HiQBioDiv SDMs Template</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About</a></li>
+<li class="chapter" data-level="1" data-path="hello-bookdown.html"><a href="hello-bookdown.html"><i class="fa fa-check"></i><b>1</b> Hello bookdown</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="hello-bookdown.html"><a href="hello-bookdown.html#a-section"><i class="fa fa-check"></i><b>1.1</b> A section</a>
+<ul>
+<li class="chapter" data-level="" data-path="hello-bookdown.html"><a href="hello-bookdown.html#an-unnumbered-section"><i class="fa fa-check"></i>An unnumbered section</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="cross.html"><a href="cross.html"><i class="fa fa-check"></i><b>2</b> Cross-references</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="cross.html"><a href="cross.html#chapters-and-sub-chapters"><i class="fa fa-check"></i><b>2.1</b> Chapters and sub-chapters</a></li>
+<li class="chapter" data-level="2.2" data-path="cross.html"><a href="cross.html#captioned-figures-and-tables"><i class="fa fa-check"></i><b>2.2</b> Captioned figures and tables</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="parts.html"><a href="parts.html"><i class="fa fa-check"></i><b>3</b> Parts</a></li>
+<li class="chapter" data-level="4" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html"><i class="fa fa-check"></i><b>4</b> Footnotes and citations</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html#footnotes"><i class="fa fa-check"></i><b>4.1</b> Footnotes</a></li>
+<li class="chapter" data-level="4.2" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html#citations"><i class="fa fa-check"></i><b>4.2</b> Citations</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="lisvul.html"><a href="lisvul.html"><i class="fa fa-check"></i><em>Lissotriton vulgaris</em></a>
+<ul>
+<li class="chapter" data-level="" data-path="lisvul.html"><a href="lisvul.html#summary"><i class="fa fa-check"></i>Summary</a>
+<ul>
+<li class="chapter" data-level="" data-path="lisvul.html"><a href="lisvul.html#model-description"><i class="fa fa-check"></i>Model description</a></li>
+<li class="chapter" data-level="" data-path="lisvul.html"><a href="lisvul.html#expert-assessment-scores"><i class="fa fa-check"></i>Expert assessment scores</a></li>
+<li class="chapter" data-level="" data-path="lisvul.html"><a href="lisvul.html#statistical-evaluation"><i class="fa fa-check"></i>Statistical evaluation</a></li>
+<li class="chapter" data-level="" data-path="lisvul.html"><a href="lisvul.html#conservation-prioritization-summary"><i class="fa fa-check"></i>Conservation prioritization summary</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="lisvul.html"><a href="lisvul.html#version-evolution"><i class="fa fa-check"></i>Version evolution</a></li>
+<li class="chapter" data-level="" data-path="lisvul.html"><a href="lisvul.html#habitat-suitability"><i class="fa fa-check"></i>Habitat suitability</a></li>
+<li class="chapter" data-level="" data-path="lisvul.html"><a href="lisvul.html#model-thresholds"><i class="fa fa-check"></i>Model thresholds</a></li>
+<li class="chapter" data-level="" data-path="lisvul.html"><a href="lisvul.html#variable-importance"><i class="fa fa-check"></i>Variable importance</a></li>
+<li class="chapter" data-level="" data-path="lisvul.html"><a href="lisvul.html#marginal-responses"><i class="fa fa-check"></i>Marginal responses</a></li>
+<li class="chapter" data-level="" data-path="lisvul.html"><a href="lisvul.html#habitat-and-conservation-associations"><i class="fa fa-check"></i>Habitat and conservation associations</a></li>
+<li class="chapter" data-level="" data-path="lisvul.html"><a href="lisvul.html#conservation-prioritization"><i class="fa fa-check"></i>Conservation prioritization</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="lisvulterrestrial.html"><a href="lisvulterrestrial.html"><i class="fa fa-check"></i><em>Lissotriton vulgaris</em> terrestrial</a>
+<ul>
+<li class="chapter" data-level="" data-path="lisvulterrestrial.html"><a href="lisvulterrestrial.html#summary-1"><i class="fa fa-check"></i>Summary</a>
+<ul>
+<li class="chapter" data-level="" data-path="lisvulterrestrial.html"><a href="lisvulterrestrial.html#model-description-1"><i class="fa fa-check"></i>Model description</a></li>
+<li class="chapter" data-level="" data-path="lisvulterrestrial.html"><a href="lisvulterrestrial.html#expert-assessment-scores-1"><i class="fa fa-check"></i>Expert assessment scores</a></li>
+<li class="chapter" data-level="" data-path="lisvulterrestrial.html"><a href="lisvulterrestrial.html#statistical-evaluation-1"><i class="fa fa-check"></i>Statistical evaluation</a></li>
+<li class="chapter" data-level="" data-path="lisvulterrestrial.html"><a href="lisvulterrestrial.html#conservation-prioritization-summary-1"><i class="fa fa-check"></i>Conservation prioritization summary</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="lisvulterrestrial.html"><a href="lisvulterrestrial.html#version-evolution-1"><i class="fa fa-check"></i>Version evolution</a></li>
+<li class="chapter" data-level="" data-path="lisvulterrestrial.html"><a href="lisvulterrestrial.html#habitat-suitability-1"><i class="fa fa-check"></i>Habitat suitability</a></li>
+<li class="chapter" data-level="" data-path="lisvulterrestrial.html"><a href="lisvulterrestrial.html#model-thresholds-1"><i class="fa fa-check"></i>Model thresholds</a></li>
+<li class="chapter" data-level="" data-path="lisvulterrestrial.html"><a href="lisvulterrestrial.html#variable-importance-1"><i class="fa fa-check"></i>Variable importance</a></li>
+<li class="chapter" data-level="" data-path="lisvulterrestrial.html"><a href="lisvulterrestrial.html#marginal-responses-1"><i class="fa fa-check"></i>Marginal responses</a></li>
+<li class="chapter" data-level="" data-path="lisvulterrestrial.html"><a href="lisvulterrestrial.html#habitat-and-conservation-associations-1"><i class="fa fa-check"></i>Habitat and conservation associations</a></li>
+<li class="chapter" data-level="" data-path="lisvulterrestrial.html"><a href="lisvulterrestrial.html#conservation-prioritization-1"><i class="fa fa-check"></i>Conservation prioritization</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="lisvullarvae.html"><a href="lisvullarvae.html"><i class="fa fa-check"></i><em>Lissotriton vulgaris</em> larvae</a>
+<ul>
+<li class="chapter" data-level="" data-path="lisvullarvae.html"><a href="lisvullarvae.html#summary-2"><i class="fa fa-check"></i>Summary</a>
+<ul>
+<li class="chapter" data-level="" data-path="lisvullarvae.html"><a href="lisvullarvae.html#model-description-2"><i class="fa fa-check"></i>Model description</a></li>
+<li class="chapter" data-level="" data-path="lisvullarvae.html"><a href="lisvullarvae.html#expert-assessment-scores-2"><i class="fa fa-check"></i>Expert assessment scores</a></li>
+<li class="chapter" data-level="" data-path="lisvullarvae.html"><a href="lisvullarvae.html#statistical-evaluation-2"><i class="fa fa-check"></i>Statistical evaluation</a></li>
+<li class="chapter" data-level="" data-path="lisvullarvae.html"><a href="lisvullarvae.html#conservation-prioritization-summary-2"><i class="fa fa-check"></i>Conservation prioritization summary</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="lisvullarvae.html"><a href="lisvullarvae.html#version-evolution-2"><i class="fa fa-check"></i>Version evolution</a></li>
+<li class="chapter" data-level="" data-path="lisvullarvae.html"><a href="lisvullarvae.html#habitat-suitability-2"><i class="fa fa-check"></i>Habitat suitability</a></li>
+<li class="chapter" data-level="" data-path="lisvullarvae.html"><a href="lisvullarvae.html#model-thresholds-2"><i class="fa fa-check"></i>Model thresholds</a></li>
+<li class="chapter" data-level="" data-path="lisvullarvae.html"><a href="lisvullarvae.html#variable-importance-2"><i class="fa fa-check"></i>Variable importance</a></li>
+<li class="chapter" data-level="" data-path="lisvullarvae.html"><a href="lisvullarvae.html#marginal-responses-2"><i class="fa fa-check"></i>Marginal responses</a></li>
+<li class="chapter" data-level="" data-path="lisvullarvae.html"><a href="lisvullarvae.html#habitat-and-conservation-associations-2"><i class="fa fa-check"></i>Habitat and conservation associations</a></li>
+<li class="chapter" data-level="" data-path="lisvullarvae.html"><a href="lisvullarvae.html#conservation-prioritization-2"><i class="fa fa-check"></i>Conservation prioritization</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="tricri.html"><a href="tricri.html"><i class="fa fa-check"></i><em>Triturus cristatus</em></a>
+<ul>
+<li class="chapter" data-level="" data-path="tricri.html"><a href="tricri.html#summary-3"><i class="fa fa-check"></i>Summary</a>
+<ul>
+<li class="chapter" data-level="" data-path="tricri.html"><a href="tricri.html#model-description-3"><i class="fa fa-check"></i>Model description</a></li>
+<li class="chapter" data-level="" data-path="tricri.html"><a href="tricri.html#expert-assessment-scores-3"><i class="fa fa-check"></i>Expert assessment scores</a></li>
+<li class="chapter" data-level="" data-path="tricri.html"><a href="tricri.html#statistical-evaluation-3"><i class="fa fa-check"></i>Statistical evaluation</a></li>
+<li class="chapter" data-level="" data-path="tricri.html"><a href="tricri.html#conservation-prioritization-summary-3"><i class="fa fa-check"></i>Conservation prioritization summary</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="tricri.html"><a href="tricri.html#version-evolution-3"><i class="fa fa-check"></i>Version evolution</a></li>
+<li class="chapter" data-level="" data-path="tricri.html"><a href="tricri.html#habitat-suitability-3"><i class="fa fa-check"></i>Habitat suitability</a></li>
+<li class="chapter" data-level="" data-path="tricri.html"><a href="tricri.html#model-thresholds-3"><i class="fa fa-check"></i>Model thresholds</a></li>
+<li class="chapter" data-level="" data-path="tricri.html"><a href="tricri.html#variable-importance-3"><i class="fa fa-check"></i>Variable importance</a></li>
+<li class="chapter" data-level="" data-path="tricri.html"><a href="tricri.html#marginal-responses-3"><i class="fa fa-check"></i>Marginal responses</a></li>
+<li class="chapter" data-level="" data-path="tricri.html"><a href="tricri.html#habitat-and-conservation-associations-3"><i class="fa fa-check"></i>Habitat and conservation associations</a></li>
+<li class="chapter" data-level="" data-path="tricri.html"><a href="tricri.html#conservation-prioritization-3"><i class="fa fa-check"></i>Conservation prioritization</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="tricriterrestrial.html"><a href="tricriterrestrial.html"><i class="fa fa-check"></i><em>Triturus cristatus</em> terrestrial</a>
+<ul>
+<li class="chapter" data-level="" data-path="tricriterrestrial.html"><a href="tricriterrestrial.html#summary-4"><i class="fa fa-check"></i>Summary</a>
+<ul>
+<li class="chapter" data-level="" data-path="tricriterrestrial.html"><a href="tricriterrestrial.html#model-description-4"><i class="fa fa-check"></i>Model description</a></li>
+<li class="chapter" data-level="" data-path="tricriterrestrial.html"><a href="tricriterrestrial.html#expert-assessment-scores-4"><i class="fa fa-check"></i>Expert assessment scores</a></li>
+<li class="chapter" data-level="" data-path="tricriterrestrial.html"><a href="tricriterrestrial.html#statistical-evaluation-4"><i class="fa fa-check"></i>Statistical evaluation</a></li>
+<li class="chapter" data-level="" data-path="tricriterrestrial.html"><a href="tricriterrestrial.html#conservation-prioritization-summary-4"><i class="fa fa-check"></i>Conservation prioritization summary</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="tricriterrestrial.html"><a href="tricriterrestrial.html#version-evolution-4"><i class="fa fa-check"></i>Version evolution</a></li>
+<li class="chapter" data-level="" data-path="tricriterrestrial.html"><a href="tricriterrestrial.html#habitat-suitability-4"><i class="fa fa-check"></i>Habitat suitability</a></li>
+<li class="chapter" data-level="" data-path="tricriterrestrial.html"><a href="tricriterrestrial.html#model-thresholds-4"><i class="fa fa-check"></i>Model thresholds</a></li>
+<li class="chapter" data-level="" data-path="tricriterrestrial.html"><a href="tricriterrestrial.html#variable-importance-4"><i class="fa fa-check"></i>Variable importance</a></li>
+<li class="chapter" data-level="" data-path="tricriterrestrial.html"><a href="tricriterrestrial.html#marginal-responses-4"><i class="fa fa-check"></i>Marginal responses</a></li>
+<li class="chapter" data-level="" data-path="tricriterrestrial.html"><a href="tricriterrestrial.html#habitat-and-conservation-associations-4"><i class="fa fa-check"></i>Habitat and conservation associations</a></li>
+<li class="chapter" data-level="" data-path="tricriterrestrial.html"><a href="tricriterrestrial.html#conservation-prioritization-4"><i class="fa fa-check"></i>Conservation prioritization</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="tricrilarvae.html"><a href="tricrilarvae.html"><i class="fa fa-check"></i><em>Triturus cristatus</em> larvae</a>
+<ul>
+<li class="chapter" data-level="" data-path="tricrilarvae.html"><a href="tricrilarvae.html#summary-5"><i class="fa fa-check"></i>Summary</a>
+<ul>
+<li class="chapter" data-level="" data-path="tricrilarvae.html"><a href="tricrilarvae.html#model-description-5"><i class="fa fa-check"></i>Model description</a></li>
+<li class="chapter" data-level="" data-path="tricrilarvae.html"><a href="tricrilarvae.html#expert-assessment-scores-5"><i class="fa fa-check"></i>Expert assessment scores</a></li>
+<li class="chapter" data-level="" data-path="tricrilarvae.html"><a href="tricrilarvae.html#statistical-evaluation-5"><i class="fa fa-check"></i>Statistical evaluation</a></li>
+<li class="chapter" data-level="" data-path="tricrilarvae.html"><a href="tricrilarvae.html#conservation-prioritization-summary-5"><i class="fa fa-check"></i>Conservation prioritization summary</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="tricrilarvae.html"><a href="tricrilarvae.html#version-evolution-5"><i class="fa fa-check"></i>Version evolution</a></li>
+<li class="chapter" data-level="" data-path="tricrilarvae.html"><a href="tricrilarvae.html#habitat-suitability-5"><i class="fa fa-check"></i>Habitat suitability</a></li>
+<li class="chapter" data-level="" data-path="tricrilarvae.html"><a href="tricrilarvae.html#model-thresholds-5"><i class="fa fa-check"></i>Model thresholds</a></li>
+<li class="chapter" data-level="" data-path="tricrilarvae.html"><a href="tricrilarvae.html#variable-importance-5"><i class="fa fa-check"></i>Variable importance</a></li>
+<li class="chapter" data-level="" data-path="tricrilarvae.html"><a href="tricrilarvae.html#marginal-responses-5"><i class="fa fa-check"></i>Marginal responses</a></li>
+<li class="chapter" data-level="" data-path="tricrilarvae.html"><a href="tricrilarvae.html#habitat-and-conservation-associations-5"><i class="fa fa-check"></i>Habitat and conservation associations</a></li>
+<li class="chapter" data-level="" data-path="tricrilarvae.html"><a href="tricrilarvae.html#conservation-prioritization-5"><i class="fa fa-check"></i>Conservation prioritization</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="bombom.html"><a href="bombom.html"><i class="fa fa-check"></i><em>Bombina bombina</em></a>
+<ul>
+<li class="chapter" data-level="" data-path="bombom.html"><a href="bombom.html#summary-6"><i class="fa fa-check"></i>Summary</a>
+<ul>
+<li class="chapter" data-level="" data-path="bombom.html"><a href="bombom.html#model-description-6"><i class="fa fa-check"></i>Model description</a></li>
+<li class="chapter" data-level="" data-path="bombom.html"><a href="bombom.html#expert-assessment-scores-6"><i class="fa fa-check"></i>Expert assessment scores</a></li>
+<li class="chapter" data-level="" data-path="bombom.html"><a href="bombom.html#statistical-evaluation-6"><i class="fa fa-check"></i>Statistical evaluation</a></li>
+<li class="chapter" data-level="" data-path="bombom.html"><a href="bombom.html#conservation-prioritization-summary-6"><i class="fa fa-check"></i>Conservation prioritization summary</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="bombom.html"><a href="bombom.html#version-evolution-6"><i class="fa fa-check"></i>Version evolution</a></li>
+<li class="chapter" data-level="" data-path="bombom.html"><a href="bombom.html#habitat-suitability-6"><i class="fa fa-check"></i>Habitat suitability</a></li>
+<li class="chapter" data-level="" data-path="bombom.html"><a href="bombom.html#model-thresholds-6"><i class="fa fa-check"></i>Model thresholds</a></li>
+<li class="chapter" data-level="" data-path="bombom.html"><a href="bombom.html#variable-importance-6"><i class="fa fa-check"></i>Variable importance</a></li>
+<li class="chapter" data-level="" data-path="bombom.html"><a href="bombom.html#marginal-responses-6"><i class="fa fa-check"></i>Marginal responses</a></li>
+<li class="chapter" data-level="" data-path="bombom.html"><a href="bombom.html#habitat-and-conservation-associations-6"><i class="fa fa-check"></i>Habitat and conservation associations</a></li>
+<li class="chapter" data-level="" data-path="bombom.html"><a href="bombom.html#conservation-prioritization-6"><i class="fa fa-check"></i>Conservation prioritization</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="pelfus.html"><a href="pelfus.html"><i class="fa fa-check"></i><em>Pelobates fuscus</em></a>
+<ul>
+<li class="chapter" data-level="" data-path="pelfus.html"><a href="pelfus.html#summary-7"><i class="fa fa-check"></i>Summary</a>
+<ul>
+<li class="chapter" data-level="" data-path="pelfus.html"><a href="pelfus.html#model-description-7"><i class="fa fa-check"></i>Model description</a></li>
+<li class="chapter" data-level="" data-path="pelfus.html"><a href="pelfus.html#expert-assessment-scores-7"><i class="fa fa-check"></i>Expert assessment scores</a></li>
+<li class="chapter" data-level="" data-path="pelfus.html"><a href="pelfus.html#statistical-evaluation-7"><i class="fa fa-check"></i>Statistical evaluation</a></li>
+<li class="chapter" data-level="" data-path="pelfus.html"><a href="pelfus.html#conservation-prioritization-summary-7"><i class="fa fa-check"></i>Conservation prioritization summary</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="pelfus.html"><a href="pelfus.html#version-evolution-7"><i class="fa fa-check"></i>Version evolution</a></li>
+<li class="chapter" data-level="" data-path="pelfus.html"><a href="pelfus.html#habitat-suitability-7"><i class="fa fa-check"></i>Habitat suitability</a></li>
+<li class="chapter" data-level="" data-path="pelfus.html"><a href="pelfus.html#model-thresholds-7"><i class="fa fa-check"></i>Model thresholds</a></li>
+<li class="chapter" data-level="" data-path="pelfus.html"><a href="pelfus.html#variable-importance-7"><i class="fa fa-check"></i>Variable importance</a></li>
+<li class="chapter" data-level="" data-path="pelfus.html"><a href="pelfus.html#marginal-responses-7"><i class="fa fa-check"></i>Marginal responses</a></li>
+<li class="chapter" data-level="" data-path="pelfus.html"><a href="pelfus.html#habitat-and-conservation-associations-7"><i class="fa fa-check"></i>Habitat and conservation associations</a></li>
+<li class="chapter" data-level="" data-path="pelfus.html"><a href="pelfus.html#conservation-prioritization-7"><i class="fa fa-check"></i>Conservation prioritization</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="pelfusmonitoring.html"><a href="pelfusmonitoring.html"><i class="fa fa-check"></i><em>Pelobates fuscus</em> monitoring</a>
+<ul>
+<li class="chapter" data-level="" data-path="pelfusmonitoring.html"><a href="pelfusmonitoring.html#summary-8"><i class="fa fa-check"></i>Summary</a>
+<ul>
+<li class="chapter" data-level="" data-path="pelfusmonitoring.html"><a href="pelfusmonitoring.html#model-description-8"><i class="fa fa-check"></i>Model description</a></li>
+<li class="chapter" data-level="" data-path="pelfusmonitoring.html"><a href="pelfusmonitoring.html#expert-assessment-scores-8"><i class="fa fa-check"></i>Expert assessment scores</a></li>
+<li class="chapter" data-level="" data-path="pelfusmonitoring.html"><a href="pelfusmonitoring.html#statistical-evaluation-8"><i class="fa fa-check"></i>Statistical evaluation</a></li>
+<li class="chapter" data-level="" data-path="pelfusmonitoring.html"><a href="pelfusmonitoring.html#conservation-prioritization-summary-8"><i class="fa fa-check"></i>Conservation prioritization summary</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="pelfusmonitoring.html"><a href="pelfusmonitoring.html#version-evolution-8"><i class="fa fa-check"></i>Version evolution</a></li>
+<li class="chapter" data-level="" data-path="pelfusmonitoring.html"><a href="pelfusmonitoring.html#habitat-suitability-8"><i class="fa fa-check"></i>Habitat suitability</a></li>
+<li class="chapter" data-level="" data-path="pelfusmonitoring.html"><a href="pelfusmonitoring.html#model-thresholds-8"><i class="fa fa-check"></i>Model thresholds</a></li>
+<li class="chapter" data-level="" data-path="pelfusmonitoring.html"><a href="pelfusmonitoring.html#variable-importance-8"><i class="fa fa-check"></i>Variable importance</a></li>
+<li class="chapter" data-level="" data-path="pelfusmonitoring.html"><a href="pelfusmonitoring.html#marginal-responses-8"><i class="fa fa-check"></i>Marginal responses</a></li>
+<li class="chapter" data-level="" data-path="pelfusmonitoring.html"><a href="pelfusmonitoring.html#habitat-and-conservation-associations-8"><i class="fa fa-check"></i>Habitat and conservation associations</a></li>
+<li class="chapter" data-level="" data-path="pelfusmonitoring.html"><a href="pelfusmonitoring.html#conservation-prioritization-8"><i class="fa fa-check"></i>Conservation prioritization</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="bufbuf.html"><a href="bufbuf.html"><i class="fa fa-check"></i><em>Bufo bufo</em></a>
+<ul>
+<li class="chapter" data-level="" data-path="bufbuf.html"><a href="bufbuf.html#summary-9"><i class="fa fa-check"></i>Summary</a>
+<ul>
+<li class="chapter" data-level="" data-path="bufbuf.html"><a href="bufbuf.html#model-description-9"><i class="fa fa-check"></i>Model description</a></li>
+<li class="chapter" data-level="" data-path="bufbuf.html"><a href="bufbuf.html#expert-assessment-scores-9"><i class="fa fa-check"></i>Expert assessment scores</a></li>
+<li class="chapter" data-level="" data-path="bufbuf.html"><a href="bufbuf.html#statistical-evaluation-9"><i class="fa fa-check"></i>Statistical evaluation</a></li>
+<li class="chapter" data-level="" data-path="bufbuf.html"><a href="bufbuf.html#conservation-prioritization-summary-9"><i class="fa fa-check"></i>Conservation prioritization summary</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="bufbuf.html"><a href="bufbuf.html#version-evolution-9"><i class="fa fa-check"></i>Version evolution</a></li>
+<li class="chapter" data-level="" data-path="bufbuf.html"><a href="bufbuf.html#habitat-suitability-9"><i class="fa fa-check"></i>Habitat suitability</a></li>
+<li class="chapter" data-level="" data-path="bufbuf.html"><a href="bufbuf.html#model-thresholds-9"><i class="fa fa-check"></i>Model thresholds</a></li>
+<li class="chapter" data-level="" data-path="bufbuf.html"><a href="bufbuf.html#variable-importance-9"><i class="fa fa-check"></i>Variable importance</a></li>
+<li class="chapter" data-level="" data-path="bufbuf.html"><a href="bufbuf.html#marginal-responses-9"><i class="fa fa-check"></i>Marginal responses</a></li>
+<li class="chapter" data-level="" data-path="bufbuf.html"><a href="bufbuf.html#habitat-and-conservation-associations-9"><i class="fa fa-check"></i>Habitat and conservation associations</a></li>
+<li class="chapter" data-level="" data-path="bufbuf.html"><a href="bufbuf.html#conservation-prioritization-9"><i class="fa fa-check"></i>Conservation prioritization</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="bufbufterrestrial.html"><a href="bufbufterrestrial.html"><i class="fa fa-check"></i><em>Bufo bufo</em> terrestrial</a>
+<ul>
+<li class="chapter" data-level="" data-path="bufbufterrestrial.html"><a href="bufbufterrestrial.html#summary-10"><i class="fa fa-check"></i>Summary</a>
+<ul>
+<li class="chapter" data-level="" data-path="bufbufterrestrial.html"><a href="bufbufterrestrial.html#model-description-10"><i class="fa fa-check"></i>Model description</a></li>
+<li class="chapter" data-level="" data-path="bufbufterrestrial.html"><a href="bufbufterrestrial.html#expert-assessment-scores-10"><i class="fa fa-check"></i>Expert assessment scores</a></li>
+<li class="chapter" data-level="" data-path="bufbufterrestrial.html"><a href="bufbufterrestrial.html#statistical-evaluation-10"><i class="fa fa-check"></i>Statistical evaluation</a></li>
+<li class="chapter" data-level="" data-path="bufbufterrestrial.html"><a href="bufbufterrestrial.html#conservation-prioritization-summary-10"><i class="fa fa-check"></i>Conservation prioritization summary</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="bufbufterrestrial.html"><a href="bufbufterrestrial.html#version-evolution-10"><i class="fa fa-check"></i>Version evolution</a></li>
+<li class="chapter" data-level="" data-path="bufbufterrestrial.html"><a href="bufbufterrestrial.html#habitat-suitability-10"><i class="fa fa-check"></i>Habitat suitability</a></li>
+<li class="chapter" data-level="" data-path="bufbufterrestrial.html"><a href="bufbufterrestrial.html#model-thresholds-10"><i class="fa fa-check"></i>Model thresholds</a></li>
+<li class="chapter" data-level="" data-path="bufbufterrestrial.html"><a href="bufbufterrestrial.html#variable-importance-10"><i class="fa fa-check"></i>Variable importance</a></li>
+<li class="chapter" data-level="" data-path="bufbufterrestrial.html"><a href="bufbufterrestrial.html#marginal-responses-10"><i class="fa fa-check"></i>Marginal responses</a></li>
+<li class="chapter" data-level="" data-path="bufbufterrestrial.html"><a href="bufbufterrestrial.html#habitat-and-conservation-associations-10"><i class="fa fa-check"></i>Habitat and conservation associations</a></li>
+<li class="chapter" data-level="" data-path="bufbufterrestrial.html"><a href="bufbufterrestrial.html#conservation-prioritization-10"><i class="fa fa-check"></i>Conservation prioritization</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="bufbufmonitoring.html"><a href="bufbufmonitoring.html"><i class="fa fa-check"></i><em>Bufo bufo</em> monitoring</a>
+<ul>
+<li class="chapter" data-level="" data-path="bufbufmonitoring.html"><a href="bufbufmonitoring.html#summary-11"><i class="fa fa-check"></i>Summary</a>
+<ul>
+<li class="chapter" data-level="" data-path="bufbufmonitoring.html"><a href="bufbufmonitoring.html#model-description-11"><i class="fa fa-check"></i>Model description</a></li>
+<li class="chapter" data-level="" data-path="bufbufmonitoring.html"><a href="bufbufmonitoring.html#expert-assessment-scores-11"><i class="fa fa-check"></i>Expert assessment scores</a></li>
+<li class="chapter" data-level="" data-path="bufbufmonitoring.html"><a href="bufbufmonitoring.html#statistical-evaluation-11"><i class="fa fa-check"></i>Statistical evaluation</a></li>
+<li class="chapter" data-level="" data-path="bufbufmonitoring.html"><a href="bufbufmonitoring.html#conservation-prioritization-summary-11"><i class="fa fa-check"></i>Conservation prioritization summary</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="bufbufmonitoring.html"><a href="bufbufmonitoring.html#version-evolution-11"><i class="fa fa-check"></i>Version evolution</a></li>
+<li class="chapter" data-level="" data-path="bufbufmonitoring.html"><a href="bufbufmonitoring.html#habitat-suitability-11"><i class="fa fa-check"></i>Habitat suitability</a></li>
+<li class="chapter" data-level="" data-path="bufbufmonitoring.html"><a href="bufbufmonitoring.html#model-thresholds-11"><i class="fa fa-check"></i>Model thresholds</a></li>
+<li class="chapter" data-level="" data-path="bufbufmonitoring.html"><a href="bufbufmonitoring.html#variable-importance-11"><i class="fa fa-check"></i>Variable importance</a></li>
+<li class="chapter" data-level="" data-path="bufbufmonitoring.html"><a href="bufbufmonitoring.html#marginal-responses-11"><i class="fa fa-check"></i>Marginal responses</a></li>
+<li class="chapter" data-level="" data-path="bufbufmonitoring.html"><a href="bufbufmonitoring.html#habitat-and-conservation-associations-11"><i class="fa fa-check"></i>Habitat and conservation associations</a></li>
+<li class="chapter" data-level="" data-path="bufbufmonitoring.html"><a href="bufbufmonitoring.html#conservation-prioritization-11"><i class="fa fa-check"></i>Conservation prioritization</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="bufvir.html"><a href="bufvir.html"><i class="fa fa-check"></i><em>Bufotes viridis</em></a>
+<ul>
+<li class="chapter" data-level="" data-path="bufvir.html"><a href="bufvir.html#summary-12"><i class="fa fa-check"></i>Summary</a>
+<ul>
+<li class="chapter" data-level="" data-path="bufvir.html"><a href="bufvir.html#model-description-12"><i class="fa fa-check"></i>Model description</a></li>
+<li class="chapter" data-level="" data-path="bufvir.html"><a href="bufvir.html#expert-assessment-scores-12"><i class="fa fa-check"></i>Expert assessment scores</a></li>
+<li class="chapter" data-level="" data-path="bufvir.html"><a href="bufvir.html#statistical-evaluation-12"><i class="fa fa-check"></i>Statistical evaluation</a></li>
+<li class="chapter" data-level="" data-path="bufvir.html"><a href="bufvir.html#conservation-prioritization-summary-12"><i class="fa fa-check"></i>Conservation prioritization summary</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="bufvir.html"><a href="bufvir.html#version-evolution-12"><i class="fa fa-check"></i>Version evolution</a></li>
+<li class="chapter" data-level="" data-path="bufvir.html"><a href="bufvir.html#habitat-suitability-12"><i class="fa fa-check"></i>Habitat suitability</a></li>
+<li class="chapter" data-level="" data-path="bufvir.html"><a href="bufvir.html#model-thresholds-12"><i class="fa fa-check"></i>Model thresholds</a></li>
+<li class="chapter" data-level="" data-path="bufvir.html"><a href="bufvir.html#variable-importance-12"><i class="fa fa-check"></i>Variable importance</a></li>
+<li class="chapter" data-level="" data-path="bufvir.html"><a href="bufvir.html#marginal-responses-12"><i class="fa fa-check"></i>Marginal responses</a></li>
+<li class="chapter" data-level="" data-path="bufvir.html"><a href="bufvir.html#habitat-and-conservation-associations-12"><i class="fa fa-check"></i>Habitat and conservation associations</a></li>
+<li class="chapter" data-level="" data-path="bufvir.html"><a href="bufvir.html#conservation-prioritization-12"><i class="fa fa-check"></i>Conservation prioritization</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="hylori.html"><a href="hylori.html"><i class="fa fa-check"></i><em>Hyla orientalis</em></a>
+<ul>
+<li class="chapter" data-level="" data-path="hylori.html"><a href="hylori.html#summary-13"><i class="fa fa-check"></i>Summary</a>
+<ul>
+<li class="chapter" data-level="" data-path="hylori.html"><a href="hylori.html#model-description-13"><i class="fa fa-check"></i>Model description</a></li>
+<li class="chapter" data-level="" data-path="hylori.html"><a href="hylori.html#expert-assessment-scores-13"><i class="fa fa-check"></i>Expert assessment scores</a></li>
+<li class="chapter" data-level="" data-path="hylori.html"><a href="hylori.html#statistical-evaluation-13"><i class="fa fa-check"></i>Statistical evaluation</a></li>
+<li class="chapter" data-level="" data-path="hylori.html"><a href="hylori.html#conservation-prioritization-summary-13"><i class="fa fa-check"></i>Conservation prioritization summary</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="hylori.html"><a href="hylori.html#version-evolution-13"><i class="fa fa-check"></i>Version evolution</a></li>
+<li class="chapter" data-level="" data-path="hylori.html"><a href="hylori.html#habitat-suitability-13"><i class="fa fa-check"></i>Habitat suitability</a></li>
+<li class="chapter" data-level="" data-path="hylori.html"><a href="hylori.html#model-thresholds-13"><i class="fa fa-check"></i>Model thresholds</a></li>
+<li class="chapter" data-level="" data-path="hylori.html"><a href="hylori.html#variable-importance-13"><i class="fa fa-check"></i>Variable importance</a></li>
+<li class="chapter" data-level="" data-path="hylori.html"><a href="hylori.html#marginal-responses-13"><i class="fa fa-check"></i>Marginal responses</a></li>
+<li class="chapter" data-level="" data-path="hylori.html"><a href="hylori.html#habitat-and-conservation-associations-13"><i class="fa fa-check"></i>Habitat and conservation associations</a></li>
+<li class="chapter" data-level="" data-path="hylori.html"><a href="hylori.html#conservation-prioritization-13"><i class="fa fa-check"></i>Conservation prioritization</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="hylorimonitoring.html"><a href="hylorimonitoring.html"><i class="fa fa-check"></i><em>Hyla orientalis</em> monitoring</a>
+<ul>
+<li class="chapter" data-level="" data-path="hylorimonitoring.html"><a href="hylorimonitoring.html#summary-14"><i class="fa fa-check"></i>Summary</a>
+<ul>
+<li class="chapter" data-level="" data-path="hylorimonitoring.html"><a href="hylorimonitoring.html#model-description-14"><i class="fa fa-check"></i>Model description</a></li>
+<li class="chapter" data-level="" data-path="hylorimonitoring.html"><a href="hylorimonitoring.html#expert-assessment-scores-14"><i class="fa fa-check"></i>Expert assessment scores</a></li>
+<li class="chapter" data-level="" data-path="hylorimonitoring.html"><a href="hylorimonitoring.html#statistical-evaluation-14"><i class="fa fa-check"></i>Statistical evaluation</a></li>
+<li class="chapter" data-level="" data-path="hylorimonitoring.html"><a href="hylorimonitoring.html#conservation-prioritization-summary-14"><i class="fa fa-check"></i>Conservation prioritization summary</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="hylorimonitoring.html"><a href="hylorimonitoring.html#version-evolution-14"><i class="fa fa-check"></i>Version evolution</a></li>
+<li class="chapter" data-level="" data-path="hylorimonitoring.html"><a href="hylorimonitoring.html#habitat-suitability-14"><i class="fa fa-check"></i>Habitat suitability</a></li>
+<li class="chapter" data-level="" data-path="hylorimonitoring.html"><a href="hylorimonitoring.html#model-thresholds-14"><i class="fa fa-check"></i>Model thresholds</a></li>
+<li class="chapter" data-level="" data-path="hylorimonitoring.html"><a href="hylorimonitoring.html#variable-importance-14"><i class="fa fa-check"></i>Variable importance</a></li>
+<li class="chapter" data-level="" data-path="hylorimonitoring.html"><a href="hylorimonitoring.html#marginal-responses-14"><i class="fa fa-check"></i>Marginal responses</a></li>
+<li class="chapter" data-level="" data-path="hylorimonitoring.html"><a href="hylorimonitoring.html#habitat-and-conservation-associations-14"><i class="fa fa-check"></i>Habitat and conservation associations</a></li>
+<li class="chapter" data-level="" data-path="hylorimonitoring.html"><a href="hylorimonitoring.html#conservation-prioritization-14"><i class="fa fa-check"></i>Conservation prioritization</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="rantem.html"><a href="rantem.html"><i class="fa fa-check"></i><em>Rana temporaria</em></a>
+<ul>
+<li class="chapter" data-level="" data-path="rantem.html"><a href="rantem.html#summary-15"><i class="fa fa-check"></i>Summary</a>
+<ul>
+<li class="chapter" data-level="" data-path="rantem.html"><a href="rantem.html#model-description-15"><i class="fa fa-check"></i>Model description</a></li>
+<li class="chapter" data-level="" data-path="rantem.html"><a href="rantem.html#expert-assessment-scores-15"><i class="fa fa-check"></i>Expert assessment scores</a></li>
+<li class="chapter" data-level="" data-path="rantem.html"><a href="rantem.html#statistical-evaluation-15"><i class="fa fa-check"></i>Statistical evaluation</a></li>
+<li class="chapter" data-level="" data-path="rantem.html"><a href="rantem.html#conservation-prioritization-summary-15"><i class="fa fa-check"></i>Conservation prioritization summary</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="rantem.html"><a href="rantem.html#version-evolution-15"><i class="fa fa-check"></i>Version evolution</a></li>
+<li class="chapter" data-level="" data-path="rantem.html"><a href="rantem.html#habitat-suitability-15"><i class="fa fa-check"></i>Habitat suitability</a></li>
+<li class="chapter" data-level="" data-path="rantem.html"><a href="rantem.html#model-thresholds-15"><i class="fa fa-check"></i>Model thresholds</a></li>
+<li class="chapter" data-level="" data-path="rantem.html"><a href="rantem.html#variable-importance-15"><i class="fa fa-check"></i>Variable importance</a></li>
+<li class="chapter" data-level="" data-path="rantem.html"><a href="rantem.html#marginal-responses-15"><i class="fa fa-check"></i>Marginal responses</a></li>
+<li class="chapter" data-level="" data-path="rantem.html"><a href="rantem.html#habitat-and-conservation-associations-15"><i class="fa fa-check"></i>Habitat and conservation associations</a></li>
+<li class="chapter" data-level="" data-path="rantem.html"><a href="rantem.html#conservation-prioritization-15"><i class="fa fa-check"></i>Conservation prioritization</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="rantemterrestrial.html"><a href="rantemterrestrial.html"><i class="fa fa-check"></i><em>Rana temporaria</em> terrestrial</a>
+<ul>
+<li class="chapter" data-level="" data-path="rantemterrestrial.html"><a href="rantemterrestrial.html#summary-16"><i class="fa fa-check"></i>Summary</a>
+<ul>
+<li class="chapter" data-level="" data-path="rantemterrestrial.html"><a href="rantemterrestrial.html#model-description-16"><i class="fa fa-check"></i>Model description</a></li>
+<li class="chapter" data-level="" data-path="rantemterrestrial.html"><a href="rantemterrestrial.html#expert-assessment-scores-16"><i class="fa fa-check"></i>Expert assessment scores</a></li>
+<li class="chapter" data-level="" data-path="rantemterrestrial.html"><a href="rantemterrestrial.html#statistical-evaluation-16"><i class="fa fa-check"></i>Statistical evaluation</a></li>
+<li class="chapter" data-level="" data-path="rantemterrestrial.html"><a href="rantemterrestrial.html#conservation-prioritization-summary-16"><i class="fa fa-check"></i>Conservation prioritization summary</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="rantemterrestrial.html"><a href="rantemterrestrial.html#version-evolution-16"><i class="fa fa-check"></i>Version evolution</a></li>
+<li class="chapter" data-level="" data-path="rantemterrestrial.html"><a href="rantemterrestrial.html#habitat-suitability-16"><i class="fa fa-check"></i>Habitat suitability</a></li>
+<li class="chapter" data-level="" data-path="rantemterrestrial.html"><a href="rantemterrestrial.html#model-thresholds-16"><i class="fa fa-check"></i>Model thresholds</a></li>
+<li class="chapter" data-level="" data-path="rantemterrestrial.html"><a href="rantemterrestrial.html#variable-importance-16"><i class="fa fa-check"></i>Variable importance</a></li>
+<li class="chapter" data-level="" data-path="rantemterrestrial.html"><a href="rantemterrestrial.html#marginal-responses-16"><i class="fa fa-check"></i>Marginal responses</a></li>
+<li class="chapter" data-level="" data-path="rantemterrestrial.html"><a href="rantemterrestrial.html#habitat-and-conservation-associations-16"><i class="fa fa-check"></i>Habitat and conservation associations</a></li>
+<li class="chapter" data-level="" data-path="rantemterrestrial.html"><a href="rantemterrestrial.html#conservation-prioritization-16"><i class="fa fa-check"></i>Conservation prioritization</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="rantemmonitoring.html"><a href="rantemmonitoring.html"><i class="fa fa-check"></i><em>Rana temporaria</em> monitoring</a>
+<ul>
+<li class="chapter" data-level="" data-path="rantemmonitoring.html"><a href="rantemmonitoring.html#summary-17"><i class="fa fa-check"></i>Summary</a>
+<ul>
+<li class="chapter" data-level="" data-path="rantemmonitoring.html"><a href="rantemmonitoring.html#model-description-17"><i class="fa fa-check"></i>Model description</a></li>
+<li class="chapter" data-level="" data-path="rantemmonitoring.html"><a href="rantemmonitoring.html#expert-assessment-scores-17"><i class="fa fa-check"></i>Expert assessment scores</a></li>
+<li class="chapter" data-level="" data-path="rantemmonitoring.html"><a href="rantemmonitoring.html#statistical-evaluation-17"><i class="fa fa-check"></i>Statistical evaluation</a></li>
+<li class="chapter" data-level="" data-path="rantemmonitoring.html"><a href="rantemmonitoring.html#conservation-prioritization-summary-17"><i class="fa fa-check"></i>Conservation prioritization summary</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="rantemmonitoring.html"><a href="rantemmonitoring.html#version-evolution-17"><i class="fa fa-check"></i>Version evolution</a></li>
+<li class="chapter" data-level="" data-path="rantemmonitoring.html"><a href="rantemmonitoring.html#habitat-suitability-17"><i class="fa fa-check"></i>Habitat suitability</a></li>
+<li class="chapter" data-level="" data-path="rantemmonitoring.html"><a href="rantemmonitoring.html#model-thresholds-17"><i class="fa fa-check"></i>Model thresholds</a></li>
+<li class="chapter" data-level="" data-path="rantemmonitoring.html"><a href="rantemmonitoring.html#variable-importance-17"><i class="fa fa-check"></i>Variable importance</a></li>
+<li class="chapter" data-level="" data-path="rantemmonitoring.html"><a href="rantemmonitoring.html#marginal-responses-17"><i class="fa fa-check"></i>Marginal responses</a></li>
+<li class="chapter" data-level="" data-path="rantemmonitoring.html"><a href="rantemmonitoring.html#habitat-and-conservation-associations-17"><i class="fa fa-check"></i>Habitat and conservation associations</a></li>
+<li class="chapter" data-level="" data-path="rantemmonitoring.html"><a href="rantemmonitoring.html#conservation-prioritization-17"><i class="fa fa-check"></i>Conservation prioritization</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ranarv.html"><a href="ranarv.html"><i class="fa fa-check"></i><em>Rana arvalis</em></a>
+<ul>
+<li class="chapter" data-level="" data-path="ranarv.html"><a href="ranarv.html#summary-18"><i class="fa fa-check"></i>Summary</a>
+<ul>
+<li class="chapter" data-level="" data-path="ranarv.html"><a href="ranarv.html#model-description-18"><i class="fa fa-check"></i>Model description</a></li>
+<li class="chapter" data-level="" data-path="ranarv.html"><a href="ranarv.html#expert-assessment-scores-18"><i class="fa fa-check"></i>Expert assessment scores</a></li>
+<li class="chapter" data-level="" data-path="ranarv.html"><a href="ranarv.html#statistical-evaluation-18"><i class="fa fa-check"></i>Statistical evaluation</a></li>
+<li class="chapter" data-level="" data-path="ranarv.html"><a href="ranarv.html#conservation-prioritization-summary-18"><i class="fa fa-check"></i>Conservation prioritization summary</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ranarv.html"><a href="ranarv.html#version-evolution-18"><i class="fa fa-check"></i>Version evolution</a></li>
+<li class="chapter" data-level="" data-path="ranarv.html"><a href="ranarv.html#habitat-suitability-18"><i class="fa fa-check"></i>Habitat suitability</a></li>
+<li class="chapter" data-level="" data-path="ranarv.html"><a href="ranarv.html#model-thresholds-18"><i class="fa fa-check"></i>Model thresholds</a></li>
+<li class="chapter" data-level="" data-path="ranarv.html"><a href="ranarv.html#variable-importance-18"><i class="fa fa-check"></i>Variable importance</a></li>
+<li class="chapter" data-level="" data-path="ranarv.html"><a href="ranarv.html#marginal-responses-18"><i class="fa fa-check"></i>Marginal responses</a></li>
+<li class="chapter" data-level="" data-path="ranarv.html"><a href="ranarv.html#habitat-and-conservation-associations-18"><i class="fa fa-check"></i>Habitat and conservation associations</a></li>
+<li class="chapter" data-level="" data-path="ranarv.html"><a href="ranarv.html#conservation-prioritization-18"><i class="fa fa-check"></i>Conservation prioritization</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ranarvterrestrial.html"><a href="ranarvterrestrial.html"><i class="fa fa-check"></i><em>Rana arvalis</em> terrestrial</a>
+<ul>
+<li class="chapter" data-level="" data-path="ranarvterrestrial.html"><a href="ranarvterrestrial.html#summary-19"><i class="fa fa-check"></i>Summary</a>
+<ul>
+<li class="chapter" data-level="" data-path="ranarvterrestrial.html"><a href="ranarvterrestrial.html#model-description-19"><i class="fa fa-check"></i>Model description</a></li>
+<li class="chapter" data-level="" data-path="ranarvterrestrial.html"><a href="ranarvterrestrial.html#expert-assessment-scores-19"><i class="fa fa-check"></i>Expert assessment scores</a></li>
+<li class="chapter" data-level="" data-path="ranarvterrestrial.html"><a href="ranarvterrestrial.html#statistical-evaluation-19"><i class="fa fa-check"></i>Statistical evaluation</a></li>
+<li class="chapter" data-level="" data-path="ranarvterrestrial.html"><a href="ranarvterrestrial.html#conservation-prioritization-summary-19"><i class="fa fa-check"></i>Conservation prioritization summary</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ranarvterrestrial.html"><a href="ranarvterrestrial.html#version-evolution-19"><i class="fa fa-check"></i>Version evolution</a></li>
+<li class="chapter" data-level="" data-path="ranarvterrestrial.html"><a href="ranarvterrestrial.html#habitat-suitability-19"><i class="fa fa-check"></i>Habitat suitability</a></li>
+<li class="chapter" data-level="" data-path="ranarvterrestrial.html"><a href="ranarvterrestrial.html#model-thresholds-19"><i class="fa fa-check"></i>Model thresholds</a></li>
+<li class="chapter" data-level="" data-path="ranarvterrestrial.html"><a href="ranarvterrestrial.html#variable-importance-19"><i class="fa fa-check"></i>Variable importance</a></li>
+<li class="chapter" data-level="" data-path="ranarvterrestrial.html"><a href="ranarvterrestrial.html#marginal-responses-19"><i class="fa fa-check"></i>Marginal responses</a></li>
+<li class="chapter" data-level="" data-path="ranarvterrestrial.html"><a href="ranarvterrestrial.html#habitat-and-conservation-associations-19"><i class="fa fa-check"></i>Habitat and conservation associations</a></li>
+<li class="chapter" data-level="" data-path="ranarvterrestrial.html"><a href="ranarvterrestrial.html#conservation-prioritization-19"><i class="fa fa-check"></i>Conservation prioritization</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ranarvmonitoring.html"><a href="ranarvmonitoring.html"><i class="fa fa-check"></i><em>Rana arvalis</em> monitoring</a>
+<ul>
+<li class="chapter" data-level="" data-path="ranarvmonitoring.html"><a href="ranarvmonitoring.html#summary-20"><i class="fa fa-check"></i>Summary</a>
+<ul>
+<li class="chapter" data-level="" data-path="ranarvmonitoring.html"><a href="ranarvmonitoring.html#model-description-20"><i class="fa fa-check"></i>Model description</a></li>
+<li class="chapter" data-level="" data-path="ranarvmonitoring.html"><a href="ranarvmonitoring.html#expert-assessment-scores-20"><i class="fa fa-check"></i>Expert assessment scores</a></li>
+<li class="chapter" data-level="" data-path="ranarvmonitoring.html"><a href="ranarvmonitoring.html#statistical-evaluation-20"><i class="fa fa-check"></i>Statistical evaluation</a></li>
+<li class="chapter" data-level="" data-path="ranarvmonitoring.html"><a href="ranarvmonitoring.html#conservation-prioritization-summary-20"><i class="fa fa-check"></i>Conservation prioritization summary</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ranarvmonitoring.html"><a href="ranarvmonitoring.html#version-evolution-20"><i class="fa fa-check"></i>Version evolution</a></li>
+<li class="chapter" data-level="" data-path="ranarvmonitoring.html"><a href="ranarvmonitoring.html#habitat-suitability-20"><i class="fa fa-check"></i>Habitat suitability</a></li>
+<li class="chapter" data-level="" data-path="ranarvmonitoring.html"><a href="ranarvmonitoring.html#model-thresholds-20"><i class="fa fa-check"></i>Model thresholds</a></li>
+<li class="chapter" data-level="" data-path="ranarvmonitoring.html"><a href="ranarvmonitoring.html#variable-importance-20"><i class="fa fa-check"></i>Variable importance</a></li>
+<li class="chapter" data-level="" data-path="ranarvmonitoring.html"><a href="ranarvmonitoring.html#marginal-responses-20"><i class="fa fa-check"></i>Marginal responses</a></li>
+<li class="chapter" data-level="" data-path="ranarvmonitoring.html"><a href="ranarvmonitoring.html#habitat-and-conservation-associations-20"><i class="fa fa-check"></i>Habitat and conservation associations</a></li>
+<li class="chapter" data-level="" data-path="ranarvmonitoring.html"><a href="ranarvmonitoring.html#conservation-prioritization-20"><i class="fa fa-check"></i>Conservation prioritization</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="pelspp.html"><a href="pelspp.html"><i class="fa fa-check"></i><em>Pelophylax sp.</em></a>
+<ul>
+<li class="chapter" data-level="" data-path="pelspp.html"><a href="pelspp.html#summary-21"><i class="fa fa-check"></i>Summary</a>
+<ul>
+<li class="chapter" data-level="" data-path="pelspp.html"><a href="pelspp.html#model-description-21"><i class="fa fa-check"></i>Model description</a></li>
+<li class="chapter" data-level="" data-path="pelspp.html"><a href="pelspp.html#expert-assessment-scores-21"><i class="fa fa-check"></i>Expert assessment scores</a></li>
+<li class="chapter" data-level="" data-path="pelspp.html"><a href="pelspp.html#statistical-evaluation-21"><i class="fa fa-check"></i>Statistical evaluation</a></li>
+<li class="chapter" data-level="" data-path="pelspp.html"><a href="pelspp.html#conservation-prioritization-summary-21"><i class="fa fa-check"></i>Conservation prioritization summary</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="pelspp.html"><a href="pelspp.html#version-evolution-21"><i class="fa fa-check"></i>Version evolution</a></li>
+<li class="chapter" data-level="" data-path="pelspp.html"><a href="pelspp.html#habitat-suitability-21"><i class="fa fa-check"></i>Habitat suitability</a></li>
+<li class="chapter" data-level="" data-path="pelspp.html"><a href="pelspp.html#model-thresholds-21"><i class="fa fa-check"></i>Model thresholds</a></li>
+<li class="chapter" data-level="" data-path="pelspp.html"><a href="pelspp.html#variable-importance-21"><i class="fa fa-check"></i>Variable importance</a></li>
+<li class="chapter" data-level="" data-path="pelspp.html"><a href="pelspp.html#marginal-responses-21"><i class="fa fa-check"></i>Marginal responses</a></li>
+<li class="chapter" data-level="" data-path="pelspp.html"><a href="pelspp.html#habitat-and-conservation-associations-21"><i class="fa fa-check"></i>Habitat and conservation associations</a></li>
+<li class="chapter" data-level="" data-path="pelspp.html"><a href="pelspp.html#conservation-prioritization-21"><i class="fa fa-check"></i>Conservation prioritization</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="pelsppmonitoring.html"><a href="pelsppmonitoring.html"><i class="fa fa-check"></i><em>Pelophylax sp.</em> monitoring</a>
+<ul>
+<li class="chapter" data-level="" data-path="pelsppmonitoring.html"><a href="pelsppmonitoring.html#summary-22"><i class="fa fa-check"></i>Summary</a>
+<ul>
+<li class="chapter" data-level="" data-path="pelsppmonitoring.html"><a href="pelsppmonitoring.html#model-description-22"><i class="fa fa-check"></i>Model description</a></li>
+<li class="chapter" data-level="" data-path="pelsppmonitoring.html"><a href="pelsppmonitoring.html#expert-assessment-scores-22"><i class="fa fa-check"></i>Expert assessment scores</a></li>
+<li class="chapter" data-level="" data-path="pelsppmonitoring.html"><a href="pelsppmonitoring.html#statistical-evaluation-22"><i class="fa fa-check"></i>Statistical evaluation</a></li>
+<li class="chapter" data-level="" data-path="pelsppmonitoring.html"><a href="pelsppmonitoring.html#conservation-prioritization-summary-22"><i class="fa fa-check"></i>Conservation prioritization summary</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="pelsppmonitoring.html"><a href="pelsppmonitoring.html#version-evolution-22"><i class="fa fa-check"></i>Version evolution</a></li>
+<li class="chapter" data-level="" data-path="pelsppmonitoring.html"><a href="pelsppmonitoring.html#habitat-suitability-22"><i class="fa fa-check"></i>Habitat suitability</a></li>
+<li class="chapter" data-level="" data-path="pelsppmonitoring.html"><a href="pelsppmonitoring.html#model-thresholds-22"><i class="fa fa-check"></i>Model thresholds</a></li>
+<li class="chapter" data-level="" data-path="pelsppmonitoring.html"><a href="pelsppmonitoring.html#variable-importance-22"><i class="fa fa-check"></i>Variable importance</a></li>
+<li class="chapter" data-level="" data-path="pelsppmonitoring.html"><a href="pelsppmonitoring.html#marginal-responses-22"><i class="fa fa-check"></i>Marginal responses</a></li>
+<li class="chapter" data-level="" data-path="pelsppmonitoring.html"><a href="pelsppmonitoring.html#habitat-and-conservation-associations-22"><i class="fa fa-check"></i>Habitat and conservation associations</a></li>
+<li class="chapter" data-level="" data-path="pelsppmonitoring.html"><a href="pelsppmonitoring.html#conservation-prioritization-22"><i class="fa fa-check"></i>Conservation prioritization</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="lacagi.html"><a href="lacagi.html"><i class="fa fa-check"></i><em>Lacerta agilis</em></a>
+<ul>
+<li class="chapter" data-level="" data-path="lacagi.html"><a href="lacagi.html#summary-23"><i class="fa fa-check"></i>Summary</a>
+<ul>
+<li class="chapter" data-level="" data-path="lacagi.html"><a href="lacagi.html#model-description-23"><i class="fa fa-check"></i>Model description</a></li>
+<li class="chapter" data-level="" data-path="lacagi.html"><a href="lacagi.html#expert-assessment-scores-23"><i class="fa fa-check"></i>Expert assessment scores</a></li>
+<li class="chapter" data-level="" data-path="lacagi.html"><a href="lacagi.html#statistical-evaluation-23"><i class="fa fa-check"></i>Statistical evaluation</a></li>
+<li class="chapter" data-level="" data-path="lacagi.html"><a href="lacagi.html#conservation-prioritization-summary-23"><i class="fa fa-check"></i>Conservation prioritization summary</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="lacagi.html"><a href="lacagi.html#version-evolution-23"><i class="fa fa-check"></i>Version evolution</a></li>
+<li class="chapter" data-level="" data-path="lacagi.html"><a href="lacagi.html#habitat-suitability-23"><i class="fa fa-check"></i>Habitat suitability</a></li>
+<li class="chapter" data-level="" data-path="lacagi.html"><a href="lacagi.html#model-thresholds-23"><i class="fa fa-check"></i>Model thresholds</a></li>
+<li class="chapter" data-level="" data-path="lacagi.html"><a href="lacagi.html#variable-importance-23"><i class="fa fa-check"></i>Variable importance</a></li>
+<li class="chapter" data-level="" data-path="lacagi.html"><a href="lacagi.html#marginal-responses-23"><i class="fa fa-check"></i>Marginal responses</a></li>
+<li class="chapter" data-level="" data-path="lacagi.html"><a href="lacagi.html#habitat-and-conservation-associations-23"><i class="fa fa-check"></i>Habitat and conservation associations</a></li>
+<li class="chapter" data-level="" data-path="lacagi.html"><a href="lacagi.html#conservation-prioritization-23"><i class="fa fa-check"></i>Conservation prioritization</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="zooviv.html"><a href="zooviv.html"><i class="fa fa-check"></i><em>Zootoca vivipara</em></a>
+<ul>
+<li class="chapter" data-level="" data-path="zooviv.html"><a href="zooviv.html#summary-24"><i class="fa fa-check"></i>Summary</a>
+<ul>
+<li class="chapter" data-level="" data-path="zooviv.html"><a href="zooviv.html#model-description-24"><i class="fa fa-check"></i>Model description</a></li>
+<li class="chapter" data-level="" data-path="zooviv.html"><a href="zooviv.html#expert-assessment-scores-24"><i class="fa fa-check"></i>Expert assessment scores</a></li>
+<li class="chapter" data-level="" data-path="zooviv.html"><a href="zooviv.html#statistical-evaluation-24"><i class="fa fa-check"></i>Statistical evaluation</a></li>
+<li class="chapter" data-level="" data-path="zooviv.html"><a href="zooviv.html#conservation-prioritization-summary-24"><i class="fa fa-check"></i>Conservation prioritization summary</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="zooviv.html"><a href="zooviv.html#version-evolution-24"><i class="fa fa-check"></i>Version evolution</a></li>
+<li class="chapter" data-level="" data-path="zooviv.html"><a href="zooviv.html#habitat-suitability-24"><i class="fa fa-check"></i>Habitat suitability</a></li>
+<li class="chapter" data-level="" data-path="zooviv.html"><a href="zooviv.html#model-thresholds-24"><i class="fa fa-check"></i>Model thresholds</a></li>
+<li class="chapter" data-level="" data-path="zooviv.html"><a href="zooviv.html#variable-importance-24"><i class="fa fa-check"></i>Variable importance</a></li>
+<li class="chapter" data-level="" data-path="zooviv.html"><a href="zooviv.html#marginal-responses-24"><i class="fa fa-check"></i>Marginal responses</a></li>
+<li class="chapter" data-level="" data-path="zooviv.html"><a href="zooviv.html#habitat-and-conservation-associations-24"><i class="fa fa-check"></i>Habitat and conservation associations</a></li>
+<li class="chapter" data-level="" data-path="zooviv.html"><a href="zooviv.html#conservation-prioritization-24"><i class="fa fa-check"></i>Conservation prioritization</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="coraus.html"><a href="coraus.html"><i class="fa fa-check"></i><em>Coronella austriaca</em></a>
+<ul>
+<li class="chapter" data-level="" data-path="coraus.html"><a href="coraus.html#summary-25"><i class="fa fa-check"></i>Summary</a>
+<ul>
+<li class="chapter" data-level="" data-path="coraus.html"><a href="coraus.html#model-description-25"><i class="fa fa-check"></i>Model description</a></li>
+<li class="chapter" data-level="" data-path="coraus.html"><a href="coraus.html#expert-assessment-scores-25"><i class="fa fa-check"></i>Expert assessment scores</a></li>
+<li class="chapter" data-level="" data-path="coraus.html"><a href="coraus.html#statistical-evaluation-25"><i class="fa fa-check"></i>Statistical evaluation</a></li>
+<li class="chapter" data-level="" data-path="coraus.html"><a href="coraus.html#conservation-prioritization-summary-25"><i class="fa fa-check"></i>Conservation prioritization summary</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="coraus.html"><a href="coraus.html#version-evolution-25"><i class="fa fa-check"></i>Version evolution</a></li>
+<li class="chapter" data-level="" data-path="coraus.html"><a href="coraus.html#habitat-suitability-25"><i class="fa fa-check"></i>Habitat suitability</a></li>
+<li class="chapter" data-level="" data-path="coraus.html"><a href="coraus.html#model-thresholds-25"><i class="fa fa-check"></i>Model thresholds</a></li>
+<li class="chapter" data-level="" data-path="coraus.html"><a href="coraus.html#variable-importance-25"><i class="fa fa-check"></i>Variable importance</a></li>
+<li class="chapter" data-level="" data-path="coraus.html"><a href="coraus.html#marginal-responses-25"><i class="fa fa-check"></i>Marginal responses</a></li>
+<li class="chapter" data-level="" data-path="coraus.html"><a href="coraus.html#habitat-and-conservation-associations-25"><i class="fa fa-check"></i>Habitat and conservation associations</a></li>
+<li class="chapter" data-level="" data-path="coraus.html"><a href="coraus.html#conservation-prioritization-25"><i class="fa fa-check"></i>Conservation prioritization</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="natnat.html"><a href="natnat.html"><i class="fa fa-check"></i><em>Natrix natrix</em></a>
+<ul>
+<li class="chapter" data-level="" data-path="natnat.html"><a href="natnat.html#summary-26"><i class="fa fa-check"></i>Summary</a>
+<ul>
+<li class="chapter" data-level="" data-path="natnat.html"><a href="natnat.html#model-description-26"><i class="fa fa-check"></i>Model description</a></li>
+<li class="chapter" data-level="" data-path="natnat.html"><a href="natnat.html#expert-assessment-scores-26"><i class="fa fa-check"></i>Expert assessment scores</a></li>
+<li class="chapter" data-level="" data-path="natnat.html"><a href="natnat.html#statistical-evaluation-26"><i class="fa fa-check"></i>Statistical evaluation</a></li>
+<li class="chapter" data-level="" data-path="natnat.html"><a href="natnat.html#conservation-prioritization-summary-26"><i class="fa fa-check"></i>Conservation prioritization summary</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="natnat.html"><a href="natnat.html#version-evolution-26"><i class="fa fa-check"></i>Version evolution</a></li>
+<li class="chapter" data-level="" data-path="natnat.html"><a href="natnat.html#habitat-suitability-26"><i class="fa fa-check"></i>Habitat suitability</a></li>
+<li class="chapter" data-level="" data-path="natnat.html"><a href="natnat.html#model-thresholds-26"><i class="fa fa-check"></i>Model thresholds</a></li>
+<li class="chapter" data-level="" data-path="natnat.html"><a href="natnat.html#variable-importance-26"><i class="fa fa-check"></i>Variable importance</a></li>
+<li class="chapter" data-level="" data-path="natnat.html"><a href="natnat.html#marginal-responses-26"><i class="fa fa-check"></i>Marginal responses</a></li>
+<li class="chapter" data-level="" data-path="natnat.html"><a href="natnat.html#habitat-and-conservation-associations-26"><i class="fa fa-check"></i>Habitat and conservation associations</a></li>
+<li class="chapter" data-level="" data-path="natnat.html"><a href="natnat.html#conservation-prioritization-26"><i class="fa fa-check"></i>Conservation prioritization</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="vipber.html"><a href="vipber.html"><i class="fa fa-check"></i><em>Vipera berus</em></a>
+<ul>
+<li class="chapter" data-level="" data-path="vipber.html"><a href="vipber.html#summary-27"><i class="fa fa-check"></i>Summary</a>
+<ul>
+<li class="chapter" data-level="" data-path="vipber.html"><a href="vipber.html#model-description-27"><i class="fa fa-check"></i>Model description</a></li>
+<li class="chapter" data-level="" data-path="vipber.html"><a href="vipber.html#expert-assessment-scores-27"><i class="fa fa-check"></i>Expert assessment scores</a></li>
+<li class="chapter" data-level="" data-path="vipber.html"><a href="vipber.html#statistical-evaluation-27"><i class="fa fa-check"></i>Statistical evaluation</a></li>
+<li class="chapter" data-level="" data-path="vipber.html"><a href="vipber.html#conservation-prioritization-summary-27"><i class="fa fa-check"></i>Conservation prioritization summary</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="vipber.html"><a href="vipber.html#version-evolution-27"><i class="fa fa-check"></i>Version evolution</a></li>
+<li class="chapter" data-level="" data-path="vipber.html"><a href="vipber.html#habitat-suitability-27"><i class="fa fa-check"></i>Habitat suitability</a></li>
+<li class="chapter" data-level="" data-path="vipber.html"><a href="vipber.html#model-thresholds-27"><i class="fa fa-check"></i>Model thresholds</a></li>
+<li class="chapter" data-level="" data-path="vipber.html"><a href="vipber.html#variable-importance-27"><i class="fa fa-check"></i>Variable importance</a></li>
+<li class="chapter" data-level="" data-path="vipber.html"><a href="vipber.html#marginal-responses-27"><i class="fa fa-check"></i>Marginal responses</a></li>
+<li class="chapter" data-level="" data-path="vipber.html"><a href="vipber.html#habitat-and-conservation-associations-27"><i class="fa fa-check"></i>Habitat and conservation associations</a></li>
+<li class="chapter" data-level="" data-path="vipber.html"><a href="vipber.html#conservation-prioritization-27"><i class="fa fa-check"></i>Conservation prioritization</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="angspp.html"><a href="angspp.html"><i class="fa fa-check"></i><em>Anguis sp.</em></a>
+<ul>
+<li class="chapter" data-level="" data-path="angspp.html"><a href="angspp.html#summary-28"><i class="fa fa-check"></i>Summary</a>
+<ul>
+<li class="chapter" data-level="" data-path="angspp.html"><a href="angspp.html#model-description-28"><i class="fa fa-check"></i>Model description</a></li>
+<li class="chapter" data-level="" data-path="angspp.html"><a href="angspp.html#expert-assessment-scores-28"><i class="fa fa-check"></i>Expert assessment scores</a></li>
+<li class="chapter" data-level="" data-path="angspp.html"><a href="angspp.html#statistical-evaluation-28"><i class="fa fa-check"></i>Statistical evaluation</a></li>
+<li class="chapter" data-level="" data-path="angspp.html"><a href="angspp.html#conservation-prioritization-summary-28"><i class="fa fa-check"></i>Conservation prioritization summary</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="angspp.html"><a href="angspp.html#version-evolution-28"><i class="fa fa-check"></i>Version evolution</a></li>
+<li class="chapter" data-level="" data-path="angspp.html"><a href="angspp.html#habitat-suitability-28"><i class="fa fa-check"></i>Habitat suitability</a></li>
+<li class="chapter" data-level="" data-path="angspp.html"><a href="angspp.html#model-thresholds-28"><i class="fa fa-check"></i>Model thresholds</a></li>
+<li class="chapter" data-level="" data-path="angspp.html"><a href="angspp.html#variable-importance-28"><i class="fa fa-check"></i>Variable importance</a></li>
+<li class="chapter" data-level="" data-path="angspp.html"><a href="angspp.html#marginal-responses-28"><i class="fa fa-check"></i>Marginal responses</a></li>
+<li class="chapter" data-level="" data-path="angspp.html"><a href="angspp.html#habitat-and-conservation-associations-28"><i class="fa fa-check"></i>Habitat and conservation associations</a></li>
+<li class="chapter" data-level="" data-path="angspp.html"><a href="angspp.html#conservation-prioritization-28"><i class="fa fa-check"></i>Conservation prioritization</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">HiQBioDiv species distribution models</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="hello-bookdown" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">1</span> Hello bookdown<a href="hello-bookdown.html#hello-bookdown" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>All chapters start with a first-level heading followed by your chapter title, like the line above. There should be only one first-level heading (<code>#</code>) per .Rmd file.</p>
+<div id="a-section" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> A section<a href="hello-bookdown.html#a-section" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>All chapter sections start with a second-level (<code>##</code>) or higher heading followed by your section title, like the sections above and below here. You can have as many as you want within a chapter.</p>
+<div id="an-unnumbered-section" class="section level3 unnumbered hasAnchor">
+<h3>An unnumbered section<a href="hello-bookdown.html#an-unnumbered-section" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Chapters and sections are numbered by default. To un-number a heading, add a <code>{.unnumbered}</code> or the shorter <code>{-}</code> at the end of the heading, like in this section.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="cross.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": false,
+    "twitter": false,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/HiQBioDiv/HiQBioDiv_SDMs_ResultTemplate/edit/main/book/01-TerminologyAcronyms.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["HiQBioDiv-SDMs.pdf"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section",
+    "scroll_highlight": true
+  }
+});
+});
+</script>
+
+</body>
+
+</html>

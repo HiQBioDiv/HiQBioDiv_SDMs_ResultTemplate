@@ -1,0 +1,8 @@
+terminology-and-acronyms
+workflow
+presences
+egvs
+sdms
+associations
+prioritisation
+species-accounts
