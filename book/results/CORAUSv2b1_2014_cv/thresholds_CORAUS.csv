@@ -1,0 +1,4 @@
+Threshold,Cloglog value,Fractional predicted area,Training omission rate
+Minimum training presence,0.36215323050177073,0.048925,0
+Equal training sensitivity and specificity,0.3799318903435631,0.0472,0.05714285714285714
+Maximum training sensitivity plus specificity,0.36215323050177073,0.048925,0

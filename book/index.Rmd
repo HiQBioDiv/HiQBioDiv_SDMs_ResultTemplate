@@ -1,0 +1,96 @@
+---
+title: "HiQBioDiv results: template"
+author: "Andris Avotins"
+date: "2026"
+site: bookdown::bookdown_site
+documentclass: book
+classoption: openany
+bibliography: [refs.bib, book.bib, packages.bib, sdm-methods.bib, presences-egvs.bib, associations-prioritization.bib]
+description: |
+  Species distribution modelling results and their post-processing for a 
+  HiQBioDiv taxonomic group: **grupas nosaukums**.
+link-citations: yes
+github-repo: HiQBioDiv/HiQBioDiv_SDMs_ResultTemplate
+---
+
+# About {-}
+
+This book presents species distribution modelling results and their 
+post-processing for a HiQBioDiv taxonomic group: **grupas nosaukums**.
+
+In this document we use species distribution modelling (SDM) as a synonym to a 
+habitat suitability modelling (HSM). The main species-specific results are 
+habitat suitability map with most commonly used thresholds, variable importance 
+and response curves. The model fit is evaluated statistically and its quality is 
+assessed by species experts - both are documented here.
+
+Derived from habitat suitability maps are results on associations with different 
+land use land cover (LULC) classes, conservation regimes and EU protected habitat. 
+Furthermore, site prioritization for species conservation is presented.
+
+All the results (figures, tables and georeferenced files) are available at 
+**taxonomic group-specific zenodo repo**.
+
+This research (project HiQBioDiv) is funded by the Latvian Ministry of Smart 
+Administration and Regional Development, project HiQBioDiv: High-resolution 
+quantification of biodiversity for conservation and management, 
+No. VPP-VARAM-Daba-2024/1-0002 
+
+
+
+```{r, eval=FALSE, echo=FALSE}
+
+# konsolē
+setwd("../")
+source("render_book.R") # pirms stumšanas uz GitHub
+#bookdown::render_book(output_format = "bookdown::pdf_book")
+
+# pdf - no šejienes
+setwd("../book/")
+bookdown::clean_book()
+unlink("_bookdown_files",
+       recursive = TRUE,
+       force = TRUE)
+unlink("HiQBioDiv-SDMs.tex",
+       force = TRUE)
+bookdown::render_book("index.Rmd",
+                      output_format = "bookdown::pdf_book")
+
+
+```
+
+
+Ik sugu grupai manuāli koriģējamās vietas:
+
+- Rmd
+
+
+- csv
+
+Ik sugai manuāli koriģējamās vietas (Rmd):
+
+
+
+Darbu secība:
+
+1. sakārto ./book/results/
+
+2. sakārto ./data/ īpašu uzmanību pievēršot species.csv, bet pārliecinās arī par pārējiem
+
+3. renderē gitbook (html) ar augstāk esošajām konsolē palaižamajām rindām
+
+4. manuāli sakārto sugu Rmd: 
+
+  - ekspertu vērtējums
+
+  - versiju evolūcija
+
+5. manuāli sakārto saites uz Zenodo:
+
+  - jāprecizē visas vietas
+
+6. nodzēš lieko no šī faila (index.Rmd)
+
+7. vēlreiz renderē html ar konsolē kopējamajām rindām
+
+8. sagatavo PDF

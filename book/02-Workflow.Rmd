@@ -1,0 +1,260 @@
+# HiQBioDiv workflow {#workflow}
+
+The HiQBioDiv workflow consists of five stages:
+
+1.  Preparation of presence locations
+
+2.  Preparation and species-specific selection of ecogeographical variables (environmental predictors)
+
+3.  Habitat suitability modelling
+
+4.  Associations of predicted habitat suitability with land use land cover (LULC) classes, conservation regimes and EU protected habitats
+
+5.  Site prioritisation for species conservation
+
+Every step is detailed below.
+
+## Occurence records {#presences}
+
+Species occurrence data were compiled for the 2016-2024 period from three principal sources. First, we used records held in the Nature Data Management System **OZOLS**, maintained by the Nature Conservation Agency of the Republic of Latvia. OZOLS integrates biodiversity-monitoring information and records on protected species, habitats, protected areas, and other data relevant to nature conservation [@NatureConservationAgency2020OZOLS]. These data included observations collected through the national monitoring programme and species surveys undertaken during the preparation of nature-protection plans.
+
+Second, we incorporated observations from the Latvian citizen-science geoportal **DabasDati.lv** [@DabasDati2026]. Records from this source were screened before modelling; where supporting photographs, video, or acoustic material were available, these were used to verify species identification, and records considered uncertain were excluded.
+
+Third, the dataset was supplemented with unpublished observations contributed by species experts. These records were subjected to the same expert-review and spatial-filtering procedures as observations obtained from institutional and citizen-science sources.
+
+The resulting modelling dataset is published as part of the HiQBioDiv species-data repository [@StarkaEtAl2026SpeciesDataset]. The repository contains expert-filtered occurrence records together with information on data source, reliability, spatial resolution, land-use/land-cover change annotations, and species-specific environmental-variable selection. For most taxonomic groups, the occurrence data cover 2016-2024; the published repository also includes a small number of taxa for which a wider temporal window was required because of limited data availability.
+
+Before modelling, species records were further filtered according to the standardized SDM workflow. This included reliability screening, restriction to the terrestrial territory of Latvia, spatial thinning to a maximum of one occurrence per analysis cell, and, where applicable, filtering according to accumulated land-use/land-cover change since the year of observation.
+
+## Ecogeographical variables {#egvs}
+
+
+Environmental predictors were drawn from a harmonized library of **538 ecogeographical variables (EGVs)** developed for the HiQBioDiv project [@AvotinsEtAl2025EGV]. The dataset comprises raster layers at 100 m resolution covering the terrestrial territory of Latvia and includes variables describing climate, topography, soils, hydrology, land use and land cover, Earth-observation products, landscape composition, configuration and diversity, and related environmental characteristics.
+
+Many predictors were represented at more than one spatial scale. In addition to values calculated for the 1-ha analysis cell, landscape-level summaries were available for circular neighbourhoods around the analysis-cell centre, including radii of 500 m, 1.25 km, 3 km, and 10 km [@AvotinsEtAl2025EGV]. This multi-scale structure allowed predictor selection to reflect both local environmental conditions and broader landscape context.
+
+A biologically informed, species-specific subset of EGVs was selected before statistical model fitting. The initial selection considered species ecology, habitat associations, geographic distribution, and characteristic spatial scale. These expert-based selections are published in the `EGVtable` component of the HiQBioDiv species-data repository [@StarkaEtAl2026SpeciesDataset].
+
+The preliminary predictor set was intentionally broad so that subsequent modelling steps could identify the most informative predictors while reducing redundancy and model complexity. For amphibians, the initial species-specific sets contained **156-183 variables**, whereas reptile models started with **170-178 variables**. Further screening for variance, collinearity, spatial structure, variable contribution, and permutation importance was carried out during the SDM workflow. This staged reduction was used because strongly correlated predictor sets can complicate ecological interpretation and may reduce robustness when predictor relationships change across space or time [@DormannEtAl2013Collinearity; @FengEtAl2019Collinearity].
+
+The exact predictors retained for each final model are reported in the corresponding species account and associated model-output files.
+
+
+
+## Habitat suitability modelling {#sdms}
+
+This chapter describes the standardized workflow used to prepare occurrence data, correct sampling bias, tune and evaluate species distribution models (SDMs), generate habitat-suitability products, and assess model plausibility and applicability.
+
+1.  **Occurrence data filtering.** Species occurrence records were screened before modelling. Only reliable records from 2016--2024 were retained, records had to fall within the terrestrial territory of Latvia, and no more than one occurrence was retained per 1-ha analysis grid cell. 
+
+    Where land-use/land-cover (LULC) change filtering was enabled, cumulative LULC change between the year of observation and 2024 was evaluated both within the 1-ha analysis cell and, where applicable, within a home-range-radius neighbourhood.
+
+2.  **Sampling-effort bias correction.** Sampling-effort bias was addressed with a modified target-group approach. Target-group background correction is commonly used to reduce the effect of geographically biased occurrence sampling in presence-background models [@Phillips2009Bias; @Fourcade2014Bias]. Our modification additionally weighted target-group information accordingly **modificējam atbilstoši sugu grupai!**:
+
+    a.  Seasonal overlap between the focal species and each target-group species was quantified with `phenology_overlap_weights()`.
+
+    b.  Overlap between focal-species observation activity and grassland habitat-inventory dates was quantified with `doy_kde_weights()`.
+
+    c.  After applying target-group-specific temporal weights, group-specific sampling-density surfaces were generated with `kde_surface()`. These functions are implemented in the R package **sdmhelpers** [@Avotins2026sdmhelpers].
+
+3.  **Background sampling.** Background locations were sampled from the effort-bias raster, which was treated as a spatial probability surface. To avoid near-zero sampling probabilities, raster values below 10% of the layer-wide arithmetic mean were raised to that minimum. We then drew 40,000 weighted background locations with the R package **terra**. Environmental combinations occurring at presence locations but absent from the sampled background were subsequently added to the background data so that the calibration data represented the environmental conditions occupied by the species.
+
+4.  **Initial multicollinearity screening.** Predictor collinearity was screened stepwise using variance inflation factors (VIF). Predictors were retained when VIF did not exceed 10, using a random sample of 10,000 locations with the R package **usdm**. VIF-based screening is a pragmatic way to limit unstable inference caused by strongly correlated predictors, although ecological interpretation and model purpose remain important when choosing among correlated variables [@Dormann2013Collinearity].
+
+5.  **Spatial autocorrelation assessment.** The spatial structure of the predictor data was examined to determine an appropriate scale for spatially independent model evaluation. Using only predictors retained after VIF screening, the median spatial autocorrelation range was estimated from 30,000 randomly selected locations with **blockCV** [@Valavi2019blockCV]. **This step was performed only when sufficient number of presence locations was available.**
+
+6.  **Spatial data partitioning.** Spatially independent occurrence and background subsets were generated from the spatial blocks defined in step 5. Presence and background locations were assigned jointly using `select_joint_folds()` from **sdmhelpers**, so that both data types followed the same spatial partitioning scheme. **This step was performed only when sufficient number of presence locations was available.**
+
+7.  **Maxent tuning and spatial cross-validation.** Maxent models were tuned and evaluated with four spatial cross-validation blocks in which both occurrence and background locations were withheld during validation. Spatially structured cross-validation is preferable to random folds when data are spatially dependent because random splitting can substantially underestimate prediction error [@Roberts2017CrossValidation; @Hijmans2012CrossValidation]. Withholding background as well as occurrences provides a more stringent assessment of spatial transferability.
+
+    To limit unnecessary model complexity, feature classes were restricted to linear (`L`), quadratic (`Q`), and their combination (`LQ`), while regularisation multipliers of 0.2, 0.25, 1/3, 0.5, 1, 2, 3, 4, 5, and 10 were evaluated. Controlling Maxent complexity is important for avoiding overfitting and improving transferability [@Warren2011MaxentComplexity; @Radosavljevic2014Maxent]. Hyperparameter tuning was implemented with **ENMeval** without raster prediction during tuning to reduce computational demand [@Kass2021ENMeval].
+
+    The preferred hyperparameter combination was selected hierarchically according to the following criteria:
+
+    a.  highest mean validation Continuous Boyce Index (CBI), a presence-only measure of whether observed occurrences are concentrated in locations receiving higher model predictions; CBI ranges from -1 to +1, with positive values indicating increasing agreement between suitability and observed presences [@Hirzel2006Boyce];
+
+    b.  highest validation True Skill Statistic (TSS), calculated as sensitivity + specificity - 1; TSS ranges from -1 to +1 and is widely used as a threshold-dependent discrimination measure [@Allouche2006TSS];
+
+    c.  highest validation Area Under the Receiver Operating Characteristic Curve (AUC), interpreted here as discrimination between presence and background locations. AUC ranges from 0.5 to 1 but is sensitive to the extent and composition of the background region and therefore was not interpreted in isolation [@Lobo2008AUC];
+
+    d.  smallest absolute difference between training and validation CBI;
+
+    e.  smallest absolute difference between training and validation TSS;
+
+    f.  smallest absolute difference between training and validation AUC; and
+
+    g.  simplest feature-class combination, with `L` considered simpler than `Q` and `Q` simpler than `LQ`.
+
+8.  **Correlation-based predictor reduction.** Using the best cross-validated hyperparameter combination, predictor redundancy was reassessed by retaining variables with absolute Spearman correlation $|r| \leq 0.8$. For correlated predictor pairs, the predictor contributing less to model TSS was removed. Predictor contribution was assessed with nine permutations in **SDMtune** [@Vignali2020SDMtune]. This reduction was performed twice:
+
+    a.  with all background locations from step 3; and
+
+    b.  with 10,000 randomly selected background locations, to reduce the risk that variable-removal decisions were driven by the very large background sample.
+
+9.  **Permutation-based model simplification.** A further simplification step used permutation importance from nine permutations. Predictors with permutation importance below 1% (or species-specifically - 5%) were considered for removal when their exclusion did not reduce TSS. The procedure was implemented in **SDMtune** [@Vignali2020SDMtune]. Permutation importance thresholds (**šo dzēšam, ja tie netika mainīti vai atbilstoši modificējam**):
+
+    a. 1% were used for all the *Reptilia* species.
+    
+    b. Comparison of 1% and 5% was used for all the *Amphibia* species.
+
+10. **Predictor importance and marginal responses.** The resulting semi-final cross-validated model was used to characterize predictor effects and importance.
+
+    a.  Variable importance was quantified with 99 permutations.
+
+    b.  Marginal response functions were generated by varying one predictor at a time while holding the remaining predictors at their arithmetic means. Because marginal response curves can be misleading when predictors are correlated or when extrapolation occurs, they were interpreted jointly with variable importance and expert ecological knowledge [@Elith2011MaxEnt; @Merow2013MaxEntGuide].
+
+11. **Final model products and independent-test TSS.** The final model refitted to the combined training data was used for spatial prediction and threshold-based products.
+
+    a.  A cloglog-transformed habitat-suitability map was generated with **SDMtune** and **terra**.
+
+    b.  Where an independent test set was available, predictions for withheld occurrences and background locations were used to calculate test AUC.
+
+    c.  Common habitat-suitability thresholds were calculated from the training data. For independent-test TSS, the threshold that maximised TSS in the training data was fixed and then applied unchanged to the independent test predictions; test sensitivity and specificity were calculated at this training-derived threshold, and TSS was calculated as sensitivity + specificity - 1.
+
+    d.  A stretched habitat-suitability map was produced for interspecific comparisons, rescaling the minimum to 0 and maximum to 1 while setting 0.5 to the maximum-training-sensitivity-plus-specificity threshold. This transformation was used only for comparative visualisation and site-suitability analyses.
+
+12. **Cross-validation null models.** Cross-validation performance was compared with 100 null models to test whether the empirical model performed better than expected under a randomised occurrence process. Null-model evaluation provides an explicit benchmark for judging whether apparently favourable discrimination scores exceed chance expectations [@Raes2007Null; @Hijmans2012CrossValidation]. Empirical values were compared with their null distributions both visually and statistically. The following metrics were evaluated with **ENMeval**:
+
+    a.  AUC;
+
+    b.  CBI;
+
+    c.  10% omission rate (OR10): the threshold is the 10th percentile of suitability predicted for training occurrences, and OR10 is the proportion of evaluation occurrences falling below that training-derived threshold. Values substantially above 0.10 indicate poorer-than-expected transfer to evaluation data;
+
+    d.  minimum-training-presence omission rate (ORMTP): the threshold is the minimum suitability predicted for any training occurrence. Training omission is therefore zero by construction; evaluation omission above zero indicates that some evaluation occurrences receive predictions lower than all training occurrences.
+
+13. **Independent testing.** For models with a spatially independent test subset, predictive performance was additionally evaluated on data that were never used during tuning or cross-validation. AUC, CBI, OR10, and ORMTP were compared with 100 independent-test null models using the same procedure as in step 12. Independent-test TSS was also reported using the training-derived maximum-TSS threshold described in step 11.c.
+
+14. **Expert assessment.** Statistical evaluation was complemented by a structured expert assessment of ecological plausibility and practical usefulness. This step was intended to identify biologically implausible models that could nevertheless obtain acceptable statistical scores, a recognised limitation of purely predictive model selection in species-distribution modelling [@Warren2011MaxentComplexity; @Merow2013MaxEntGuide].
+
+    Experts considered three complementary products:
+
+    a.  the stretched habitat-suitability map (step 11.d), assessing whether known occurrence sites were generally classified as suitable and whether clearly unsuitable habitats were avoided;
+
+    b.  marginal response functions (step 10.b), assessing whether the direction and form of predictor-response relationships were ecologically interpretable and did not clearly contradict established species ecology; and
+
+    c.  variable importance (step 10.a), interpreted jointly with marginal responses so that weakly important but difficult-to-explain predictors were distinguished from influential and potentially problematic relationships.
+
+    Expert assessment scores (These scales are project-specific operational criteria designed to standardise expert judgement across species and should not be interpreted as externally validated psychometric scales):
+    
+    - Marginal responses and variable importance score: ecological interpretability:
+    
+      - `1`: **Poor ecological interpretability.** The model is largely correlative; response curves show no clear ecological relationships or show relationships that are difficult to use in conservation planning.
+      
+      - `2`: **Limited ecological interpretability.** Some response curves are ecologically plausible, but the overall pattern is weak, inconsistent, or of limited practical value.
+      
+      - `3`: **Moderate ecological interpretability.** Easily and poorly interpretable relationships occur in roughly similar proportions; some curves remain correlative or difficult to use in conservation planning.
+      
+      - `4`: **Good ecological interpretability.** Most response curves are ecologically plausible and useful, although some relationships remain uncertain or difficult to interpret.
+      
+      - `5`: **Excellent ecological interpretability.** Response curves are ecologically well supported, with clear dominance of interpretable predictors linked to the species' ecology.
+    
+    - Map score: agreement with known distribution and habitat:
+    
+      - `1`: **Poor map agreement.** Known or well-tested sites are frequently misclassified, and many clearly unsuitable areas are predicted as suitable.
+      
+      - `2`: **Limited map agreement.** The broad spatial pattern is partly plausible, but several known sites or clearly unsuitable areas are misclassified.
+      
+      - `3`: **Moderate map agreement.** The map generally reflects the known distribution; classification is mostly correct, but some species-specific artefacts or implausible predictions remain.
+      
+      - `4`: **Good map agreement.** The map agrees well with known and tested sites, with only occasional local misclassification or artefacts.
+      
+      - `5`: **Excellent map agreement.** Known and well-tested sites are classified well, and no clearly implausible or obviously unsuitable predicted areas are evident.
+    
+    - Applicability score: practical usefulness:
+    
+      - `0`: **Not applicable.** The model is considered unreliable and should not be used for conservation applications.
+      
+      - `1`: **Very limited applicability.** The habitat-suitability map may be used mainly to guide field surveys intended to collect additional occurrence or abundance data for subsequent model improvement.
+      
+      - `2`: **Limited applicability.** The map may be used with substantially reduced weight in multi-species conservation prioritisation.
+      
+      - `3`: **Moderate applicability.** The habitat-suitability map is generally useful, but clear artefacts or questionable areas remain and should be considered when interpreting prioritisation results.
+      
+      - `4`: **High applicability.** The habitat-suitability map is suitable for species-conservation planning, but ecological interpretation should also draw on the response functions rather than relying on the map alone.
+      
+      - `5`: **Very high applicability.** Both the habitat-suitability map and the response functions are highly informative and may be used for species-conservation planning and scenario modelling.
+
+
+15. **Final model acceptance.** A model was accepted as final only when it met both the statistical-performance requirements and the expert criteria for ecological plausibility and applicability. When either component was unsatisfactory, problematic predictors were excluded from the initial predictor set and the full modelling workflow was repeated. Iteration continued until the model achieved an acceptable balance between predictive performance, transferability, parsimony, and ecological interpretability.
+
+## Associations {#associations}
+
+
+To describe how predicted habitat suitability was distributed among broad land-use, habitat, and conservation categories, we calculated a **continuous relative suitability index** for each category. For category \(j\), the index was calculated as
+
+\[
+I_j =
+\frac{S_j / S_{\mathrm{tot}}}
+     {A_j / A_{\mathrm{tot}}},
+\]
+
+where \(S_j\) is the sum of predicted continuous habitat suitability within category \(j\), \(S_{\mathrm{tot}}\) is the corresponding sum over the complete comparison domain, \(A_j\) is the area of category \(j\), and \(A_{\mathrm{tot}}\) is the total area of the comparison domain. The formulation is analogous to a use-to-availability selection ratio [@ManlyEtAl2002ResourceSelection], except that predicted habitat suitability, rather than observed animal use, forms the numerator. Consequently, the index was interpreted as a descriptive measure of the **relative concentration of predicted suitability**, not as direct evidence of behavioural habitat selection. A value of 1 indicates that the proportion of total predicted suitability occurring in a category is proportional to its area; values \(>1\) indicate disproportionately high predicted suitability, whereas values \(<1\) indicate disproportionately low predicted suitability.
+
+Associations were summarized for five complementary classifications:
+
+1. **Broad land-use/land-cover (LULC) classes:** roads; water; farmland; allotment gardens and farms; built-up areas; trees, shrubs and clear-cuts; wetlands; and bare soil.
+
+2. **Natura 2000 status:** areas within and outside the Natura 2000 network.
+
+3. **EU protected habitat groups:** dune, freshwater, heath, grassland, mire, rocky, and tree-covered habitat groups. Habitats were grouped as:
+
+  - dune: "1210", "1220", "1310", "1640", "2110", "2120", "2130\*", "2140\*", "2170", "2330"
+  
+  - freshwater: "1150\*", "3130", "3140", "3150", "3160", "3190\*", "3260", "3270"
+  
+  - heath: "2320", "4010", "4030"
+  
+  - grassland: "1630\*", "6110\*", "6120\*", "6210", "6230\*", "6270\*", "6410", "6430", "6450", "6510", "6530\*"
+  
+  - mire: "2190", "7110\*", "7120", "7140", "7150", "7160", "7210\*", "7220\*", "7230"
+  
+  - rocky:"1230", "8210", "8220", "8310"
+  
+  - tree-covered: "2180", "6530\*",  "9010\*", "9020\*", "9050", "9060", "9070", "9080\*", "9160", "9180\*", "91D0\*", "91E0\*", "91F0", "91T0".
+
+4. **Nature-conservation regime:** unprotected areas and the functional-zone categories used in the national protected-area and micro-reserve system.
+
+5. **Individual EU protected habitat types:** habitat categories identified by their EU habitat codes.
+
+For each category, the total index was calculated from the summed suitability and total mapped area. For classifications composed of multiple individual polygons, polygon-level indices were additionally calculated to show within-category variation. The figures therefore combine category-level estimates (points) with the distributions of polygon-level values (boxplots, where applicable). Labels above and below the panels report, respectively, the percentage of total predicted suitability and the percentage of mapped area represented by each category.
+
+For individual protected habitats, a maximum of 999 polygons per habitat type was sampled when more polygons were available; reference locations outside mapped EU protected habitats were sampled from the 1-km terrestrial grid using a fixed random seed (1). Analogous reference units were created for analyses of protected versus unprotected areas. These samples were used to visualize variation among individual spatial units, whereas the category-level points were calculated from the complete mapped category layers.
+
+As an additional summary of the association with conservation regime, the polygon-level relative suitability index was related to the coded conservation regime using a Gamma generalized linear model with a log link. The exponentiated slope therefore represents the multiplicative change in the expected relative suitability index associated with a one-level increase in the coded conservation regime. Because the functional-zone classes differ in both legal designation and ecological context, this coefficient was treated as a descriptive gradient rather than as a causal effect of protection.
+
+
+
+## Site prioritisation {#prioritisation}
+
+
+
+Single-species spatial prioritisation was performed with **Zonation 5** [@MoilanenEtAl2022Zonation5; @LehtomakiMoilanen2013Workflow]. Zonation produces a hierarchical rank map in which all analysis cells are ordered according to their contribution to the specified conservation objective, with values approaching 1 representing the highest-ranked sites. The prioritisation was run with the `CAZMAX` marginal-loss rule and with connectivity enabled.
+
+For each species account, the final continuous habitat-suitability raster was used as the biodiversity feature. The same raster was supplied in three equally weighted feature representations: one without a single-feature connectivity transformation (`sf_conn = -1`) and two connectivity-linked representations (`sf_conn = 1` and `sf_conn = 2`). The connectivity links used Gaussian kernels parameterized as
+
+```text
+gaussian(HomeRange / 100, 3)
+```
+
+where `HomeRange` is the species-specific home-range scale and division by 100 converts this distance to units of the 100-m analysis grid. Thus, prioritisation incorporated both local predicted suitability and the spatial configuration of suitable cells at a biologically informed scale.
+
+The principal Zonation output was the continuous priority-rank map. Zonation performance curves were used to quantify the proportion of the input feature retained as increasingly larger fractions of the landscape were included. In the single-species analysis, the `weighted_mean_positive` curve was interpreted as an **apparent-population proxy**, because the input feature was the continuous habitat-suitability surface rather than observed abundance.
+
+For descriptive conservation planning, an extinction-risk proxy was calculated from the remaining apparent-population proportion \(P\) using
+
+\[
+R = 1 - P^{0.25},
+\]
+
+where 0.25 is the species-area exponent used in the prioritisation post-processing. This quantity should be interpreted as a prioritisation-derived proxy for relative loss risk rather than as a direct estimate of demographic or IUCN extinction probability.
+
+Two candidate thresholds were derived from the performance curves. The **primary priority threshold** was defined as the landscape rank at which the apparent-population curve and the extinction-risk proxy were closest to one another. This point represents the balance at which the retained apparent-population proportion and the corresponding loss-risk proxy are approximately equal.
+
+A second, broader threshold was linked to the thresholded habitat-suitability map. First, we calculated the proportion of total continuous suitability contained within cells classified as suitable using the selected habitat-suitability threshold. The Zonation rank at which the remaining apparent-population proxy most closely matched this proportion was then identified as the candidate **secondary priority threshold**. The secondary threshold was interpreted and reported only when it defined a larger area than the primary priority threshold; otherwise it was not treated as a meaningful additional conservation tier.
+
+For each threshold, we summarized both the proportion of Latvia included in the priority area and the proportion of summed habitat suitability (the apparent-population proxy) retained within it. The species-account prioritisation figure contains three components: (A) the continuous Zonation priority-rank map; (B) the apparent-population and extinction-risk curves, with the selected priority zones indicated; and (C) the resulting stratified priority map. Cells above the primary threshold were classified as **Priority**, cells between valid primary and secondary thresholds as **High importance**, and lower-ranked cells as **Low importance**.
+
+These single-species analyses were intended to describe the spatial structure and conservation concentration of each species model separately. They therefore complement, rather than replace, subsequent multi-species conservation-prioritisation analyses in which trade-offs and complementarity among species are evaluated jointly.
+
+

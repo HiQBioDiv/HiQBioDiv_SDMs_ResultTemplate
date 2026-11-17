@@ -1,0 +1,208 @@
+# Terminology and acronyms
+
+
+This chapter defines the principal abbreviations and methodological terms used throughout the workflow and species accounts.
+
+## Acronyms and abbreviations {-}
+
+**AUC - Area Under the Receiver Operating Characteristic Curve**  
+: A threshold-independent discrimination metric describing the ability of a 
+model to rank occurrence locations above background locations. AUC ranges from 0.5, 
+indicating discrimination no better than random expectation, to 1, indicating 
+perfect discrimination. In presence-background models, it is sensitive to the 
+extent and composition of the background region [@Lobo2008AUC]
+
+**CBI - Continuous Boyce Index**  
+: A presence-only model-evaluation metric assessing whether observed occurrence 
+locations are concentrated in areas receiving higher predicted suitability. Values 
+range from -1 to 1. Positive values indicate agreement between model predictions 
+and occurrence data, values near 0 indicate performance close to random 
+expectation, and negative values indicate an inverse relationship [@Hirzel2006Boyce].
+
+**EGV - Ecogeographical variable**  
+: An environmental predictor used in habitat-suitability modelling. EGVs used in 
+this project describe climate, topography, soils, hydrology, land use and land 
+cover, Earth-observation products, landscape structure, and other 
+environmental characteristics. Many EGVs are available at several spatial scales.
+
+**HSM - Habitat suitability model/map**  
+: Depending on context, refers to either the fitted model describing environmental 
+suitability or its spatial prediction. Where ambiguity is possible, the 
+terms *habitat suitability model* and *habitat suitability map* are written in full.
+
+**LULC - Land use and land cover**  
+: Classification of the terrestrial surface according to land use and land-cover 
+characteristics. LULC information is used both as environmental information and 
+to evaluate changes occurring between the year of a species observation and 2024.
+
+**ORMTP - Minimum-training-presence omission rate**  
+: The proportion of evaluation occurrences receiving predictions below the minimum 
+suitability predicted for any training occurrence. Training omission is zero by 
+definition. Values above zero indicate that some evaluation occurrences receive 
+suitability values below all training occurrences [@Kass2021ENMeval].
+
+**OR10 - 10% omission rate**  
+: The proportion of evaluation occurrences falling below the suitability threshold defined by the 10th percentile of predictions at training occurrences. Values around 0.10 are expected by construction for training data; substantially larger evaluation values indicate poorer transfer to withheld data [@Kass2021ENMeval].
+
+**SDM - Species distribution model**  
+: A statistical model relating species occurrence information to environmental 
+predictors to estimate the relative suitability of locations for a species. In 
+this book, SDMs are presence-background Maxent models unless stated otherwise.
+
+**TSS - True Skill Statistic**  
+: A threshold-dependent discrimination metric calculated as 
+sensitivity + specificity - 1. TSS ranges from -1 to 1, with higher values 
+indicating better discrimination. Independent-test TSS is calculated using a 
+threshold selected from the training data and then applied unchanged to the 
+independent test data [@Allouche2006TSS].
+
+**VIF - Variance Inflation Factor**  
+: A diagnostic measure of multicollinearity among predictor variables. VIF 
+quantifies how strongly the variance of a predictor's estimated coefficient is 
+inflated because that predictor can be explained by other predictors in the model. 
+Larger values indicate stronger multicollinearity. In this workflow, predictors 
+with VIF > 10 were removed during the initial screening step [@DormannEtAl2013Collinearity].
+
+## Key terminology {-}
+
+**Analysis cell**  
+: The basic spatial unit used for modelling. The principal analysis grid has a 
+resolution of 100 m × 100 m, corresponding to an area of 1 ha.
+
+**Association**  
+: In this book, a descriptive relationship between predicted habitat suitability 
+and a land-use, habitat, Natura 2000, or conservation-regime category. Association 
+does not imply a causal effect or behavioural habitat selection.
+
+**Apparent population**  
+: A relative proxy derived from the amount of habitat suitability retained along 
+the Zonation priority ranking. Because continuous habitat suitability, rather than 
+abundance, is used as the biodiversity feature, this quantity should not be 
+interpreted as an estimate of actual population size.
+
+**Background location**  
+: A location sampled from the accessible modelling region and used to characterise 
+environmental conditions available to the species. Background locations are not 
+assumed to represent confirmed species absences.
+
+**Bias layer / effort-bias layer**  
+: A raster describing spatial variation in observation or sampling effort. It is 
+used as a probability surface when sampling background locations so that background 
+sampling better reflects the spatial structure of species-recording effort.
+
+**Cloglog suitability**  
+: Habitat suitability expressed using the complementary log-log transformation 
+of Maxent predictions. Values range from 0 to 1 and are used as the principal 
+continuous habitat-suitability output in this workflow.
+
+**Conservation-priority rank**  
+: The continuous rank produced by Zonation, ranging from low-ranking to 
+highest-ranking cells. Values approaching 1 identify cells with the greatest 
+relative contribution to the specified single-species conservation objective.
+
+**Continuous relative suitability index**  
+: An index describing whether predicted habitat suitability is disproportionately 
+concentrated within a land-use, habitat, or conservation category relative to 
+the area occupied by that category. It is calculated as the proportion of total 
+predicted suitability occurring in a category divided by the proportion of 
+the total area represented by that category. A value of 1 indicates proportional 
+representation, values above 1 indicate disproportionately high predicted 
+suitability, and values below 1 indicate disproportionately low predicted suitability.
+
+**Cross-validation**  
+: Evaluation in which subsets of the calibration data are withheld from model 
+fitting and used for validation. Spatial cross-validation is used where possible 
+so that training and validation observations are geographically separated.
+
+**Extinction-risk proxy**  
+: A prioritisation-derived measure calculated from the proportion of apparent 
+population remaining along the Zonation ranking. It represents relative loss risk 
+under the prioritisation framework and must not be interpreted as a demographic 
+extinction probability or an IUCN extinction-risk estimate.
+
+**Independent test set**  
+: Occurrence and background data withheld before model tuning and cross-validation 
+and used only for final model evaluation. Models designated `TrainVal` do not 
+contain an independent test set, whereas `TrainValTest` models do.
+
+**Marginal response**  
+: The predicted relationship between habitat suitability and one environmental 
+predictor while the remaining predictors are held at fixed values, here generally 
+their arithmetic means. Marginal responses are used for ecological interpretation 
+but should be interpreted cautiously when predictors are correlated.
+
+**Maxent**  
+: A presence-background modelling approach used here to estimate relative habitat 
+suitability from species occurrences and environmental predictors. Model complexity 
+is controlled through feature classes and regularisation.
+
+**Null model**  
+: A model generated after randomisation of occurrence information and used to 
+establish the level of model performance expected by chance. Empirical evaluation 
+metrics are compared with distributions obtained from repeated null models.
+
+**Permutation importance**  
+: A measure of predictor importance obtained by randomly permuting the values of 
+a predictor and quantifying the resulting decrease in model performance. 
+Larger decreases indicate a greater contribution of that predictor to model predictions.
+
+**Preference**  
+: This term is avoided where possible in the interpretation of model-derived 
+habitat associations because predicted habitat suitability does not directly 
+measure behavioural selection. Where retained in internal variable names or 
+historical outputs, *preference* refers to the continuous relative suitability 
+index rather than demonstrated habitat preference.
+
+**Presence location**  
+: A spatially referenced record indicating that the focal species was observed 
+at a location. Presence records are subjected to reliability, spatial, temporal, 
+and, where applicable, LULC-change filtering before modelling.
+
+**Primary priority area**  
+: The highest-priority portion of the landscape identified from the single-species 
+Zonation performance curves. In this workflow, its threshold is selected near 
+the point where the apparent-population and extinction-risk-proxy curves are closest.
+
+**Secondary priority area**  
+: A broader candidate conservation-priority area derived from the Zonation 
+performance curve and the proportion of total suitability retained above the 
+selected habitat-suitability threshold. It is reported only when it encompasses 
+a larger area than the primary priority area.
+
+**Sensitivity**  
+: The proportion of occurrence locations correctly classified as suitable at a 
+specified habitat-suitability threshold.
+
+**Specificity**  
+: The proportion of background locations correctly classified below a specified 
+habitat-suitability threshold. In presence-background modelling, specificity 
+refers to discrimination against sampled background rather than confirmed species 
+absences.
+
+**Spatial autocorrelation**  
+: The tendency for environmental conditions or observations at nearby locations 
+to be more similar than those farther apart. Its estimated range is used to 
+inform the spatial scale of data partitioning and model evaluation.
+
+**Target-group approach**  
+: A sampling-bias correction method in which occurrence records from a group of 
+similarly surveyed species are used to approximate spatial variation in recording 
+effort. In this project, target-group information can additionally be weighted 
+according to temporal overlap in recording activity.
+
+**Threshold**  
+: A selected value of continuous habitat suitability used to distinguish areas 
+classified as suitable from those classified as unsuitable, or to calculate 
+threshold-dependent evaluation statistics. Different threshold-selection criteria 
+are reported because they serve different purposes.
+
+**Zonation / Zonation 5**  
+: Spatial conservation-prioritisation software used to rank landscape cells 
+according to their contribution to conservation objectives. In this project, 
+Zonation is applied separately to each species before subsequent multi-species 
+prioritisation.
+
+**CAZMAX**  
+: The Zonation marginal-loss rule used for the single-species prioritisation 
+analyses in this book. It determines how the conservation value lost when cells 
+are removed contributes to the hierarchical ranking of sites.

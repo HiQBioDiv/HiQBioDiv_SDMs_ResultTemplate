@@ -1,0 +1,295 @@
+# *Bombina bombina* {- #bombom}
+
+```{r, include=FALSE, warning=FALSE, message=FALSE}
+species_code <- "BOMBOM"
+source("../R/species_helpers.R")
+
+species_result <- get_species_result(
+  species_code,
+  "../data/rezultatu_tabula.xlsx"
+)
+```
+
+## Summary {-}
+
+
+```{r, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+render_model_description(species_result)
+render_expert_scores(species_result)
+```
+
+<!-- BEGIN USER:expert_evaluation -->
+
+
+
+
+
+
+
+
+
+**Šo sadaļu aizpildām manuāli no ekspertu aptaujām**
+
+
+
+The model was considered ecologically plausible overall. Elevated suitability in 
+the 0.5 road-distance band was interpreted as a likely observer-access effect, 
+while climatic predictors showed relatively high uncertainty; otherwise, the 
+marginal responses were considered reasonable. The habitat-suitability map agreed 
+well with expert knowledge and was considered among the best of the evaluated 
+model variants, although some local overprediction remained, notably around 
+Lake Riču. The map was considered suitable for species-conservation planning 
+when used together with other ecological information, while the explanatory 
+value of the marginal response functions was somewhat more limited.
+
+Expert: Andris Čeirāns
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- END USER:expert_evaluation -->
+
+```{r, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+render_statistical_summary(species_result)
+render_prioritization_summary(species_result)
+```
+
+
+
+### Version evolution {-}
+
+<!-- BEGIN USER:version_evolution -->
+
+
+
+
+
+
+
+
+
+
+**Šo sadaļu aizpildām manuāli, izmntojot sagatavotās shēmas. Jāvienojas par to noformējumu**
+
+
+The following diagram describes version evolution during modelling. 
+Colour codes:
+
+- **black**: branch in version evolution from the initial EGV selection up 
+until the best version;
+
+- **green**: the final version;
+
+- **grey**: other versions.
+
+All the modifications on the black-to-green branch are described below the 
+diagram.
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, out.width='100%'}
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(DiagrammeR))
+suppressPackageStartupMessages(library(DiagrammeRsvg))
+suppressPackageStartupMessages(library(rsvg))
+
+bombom_shema="digraph flowchart {
+  rankdir = LR
+
+
+  # node type pamatainavas
+  node [fontname = Helvetica, shape = none,style=none,fontface=bold,fontsize=6,fontcolor=white];{
+    node [label='Pamatainavas']; level0;
+    node [label='Level 1']; level1;
+    node [label='Level 2']; level2;
+    node [label='Level 3']; level3;
+    node [label='Level 4']; level4;
+    node [label='Level 5']; level5;
+    node [label='Level 6']; level6;
+    node [label='Level 7']; level7;
+    node [label='Level 8']; level8;
+  }
+
+
+  # node type 0: grupas
+  node [fontname = Helvetica, shape = rectangle,style=rounded,fontface=bold,fontsize=30,fontcolor=black];{
+    node [label='BOMBOM']; sp2;
+  }
+
+  # node type: versijas
+  node [fontname = Helvetica, shape = rectangle,style=rounded,fontface=bold,fontsize=30,fontcolor=black];{
+  node [label='v0']; v0b;
+  node [label='v1']; v1b;
+  }
+  
+  # node type: versijas-i
+  node [fontname = Helvetica, shape = rectangle,style=rounded,fontface=bold,fontsize=30,fontcolor=grey];{
+    node [label='v2a5\n(with 2025)']; v2a5_2;
+  node [label='v2a']; v2a2;
+  node [label='v3a\n(with 2025)']; v3a2025;
+  node [label='v3b\n(with 2025)']; v3b2025;
+    node [label='v2b5\n(with 2025)']; v2b5_2;
+    node [label='v2a1\n(with 2025)']; v2a1_2;
+    node [label='v2b1\n(with 2025)']; v2b1_2;
+    node [label='v4a1\n(with 2025)']; v4a1_2;
+    node [label='v4a5\n(with 2025)']; v4a5_2;
+    node [label='v4b1\n(with 2025)']; v4b1_2;
+    node [label='v4b5\n(with 2025)']; v4b5_2;
+  }
+  
+    # node type: previous-best
+  node [fontname = Helvetica, shape = rectangle,style=rounded,fontface=bold,fontsize=30,fontcolor=darkgreen];{
+  node [label='v2b']; v2b2;
+  }
+  
+      # node type: versijas-ii
+  node [fontname = Helvetica, shape = rectangle,style=rounded,fontface=bold,fontsize=30,fontcolor=grey];{
+    node [label='v5b1']; v5b1;
+    node [label='v6b1']; v6b1;
+  }
+  
+    # specify which nodes are of the same 'rank' so that they'll be drawn at the same level
+      {rank = same; level0 sp2}
+      {rank = same; level1 v0b}
+      {rank = same; level2 v1b}
+      {rank = same; level3 v2a2 v2b2}
+      {rank = same; level4 }
+      {rank = same; level5 v3a2025 v3b2025 v2a5_2 v2a1_2 v2b5_2 v2b1_2}
+{rank = same; level6 v4a1_2 v4a5_2 v4b1_2}
+{rank = same; level7 v5b1 v6b1}
+
+    edge[tailclip = true, headclip = true,color=white,arrowhead=none];
+      level0 -> level1
+      level1 -> level2
+      level2 -> level3
+      level3 -> level4
+      level4 -> level5
+      level5 -> level6
+      level6 -> level7
+      level7 -> level8
+      
+    edge[tailclip = true, headclip = true,color=black,arrowhead=none];
+      sp2 -> v0b
+      v0b -> v1b
+      v1b -> v2a2
+      v2a2 -> v2a1_2
+      v2a2 -> v2a5_2
+      v2a1_2 -> v4a1_2
+      v2a5_2 -> v4a5_2
+      v1b -> v2b2
+      v2a2 -> v3a2025
+      v2b2 -> v3b2025
+      v2b2 -> v2b1_2
+      v2b2 -> v2b5_2
+      v2b1_2 -> v4b1_2
+      v2b5_2 -> v4b5_2
+      v2b2 -> v5b1
+      v2b2 -> v6b1
+
+}"
+
+species_code="BOMBOM"
+graph <- DiagrammeR::grViz(bombom_shema)
+
+# Persistent output directory relative to book/
+out_dir <- file.path("figures", "version_evolution")
+
+if (!dir.exists(out_dir)) {
+  dir.create(
+    out_dir,
+    recursive = TRUE,
+    showWarnings = FALSE
+  )
+}
+
+svg_file <- file.path(
+  out_dir,
+  paste0(species_code, "_version_evolution.svg")
+)
+
+pdf_file <- file.path(
+  out_dir,
+  paste0(species_code, "_version_evolution.pdf")
+)
+
+svg_txt <- DiagrammeRsvg::export_svg(graph)
+
+writeLines(
+  svg_txt,
+  svg_file
+)
+
+rsvg::rsvg_pdf(
+  svg_file,
+  pdf_file
+)
+
+if (knitr::is_html_output()) {
+
+  knitr::include_graphics(svg_file)
+
+} else if (knitr::is_latex_output()) {
+
+  knitr::include_graphics(pdf_file)
+}
+
+
+```
+
+**v0 to v1**
+
+- EGVs excluded:
+
+  - egv_150: (Edges_Roads_cell.tif) Edge pixels of Roads within the analysis cell (1 ha)
+  
+  - egv_423: (General_ForestsWithoutInventory_cell.tif) Fractional cover of Forests Without Inventory within the analysis cell (1 ha)
+  
+  - egv_424: (General_ForestsWithoutInventory_r500.tif) Fractional cover of Forests Without Inventory within the 0.5 km landscape
+  
+  - egv_425: (General_ForestsWithoutInventory_r1250.tif) Fractional cover of Forests Without Inventory within the 1.25 km landscape
+  
+  - egv_426: (General_ForestsWithoutInventory_r3000.tif) Fractional cover of Forests Without Inventory within the 3 km landscape
+  
+  - egv_427: (General_ForestsWithoutInventory_r10000.tif) Fractional cover of Forests Without Inventory within the 10 km landscape
+  
+  - egv_255: (FarmlandSubsidies_BiologicalSubsidies_cell.tif) Fractional cover of Farmland receiving Subsidies for Biological Agriculture within the analysis cell (1 ha)
+  
+  - egv_256: (FarmlandSubsidies_BiologicalSubsidies_r500.tif) Fractional cover of Farmland receiving Subsidies for Biological Agriculture within the 0.5 km landscape
+  
+  - egv_257: (FarmlandSubsidies_BiologicalSubsidies_r1250.tif) Fractional cover of Farmland receiving Subsidies for Biological Agriculture within the 1.25 km landscape
+  
+  - egv_258: (FarmlandSubsidies_BiologicalSubsidies_r3000.tif) Fractional cover of Farmland receiving Subsidies for Biological Agriculture within the 3 km landscape
+  
+  - egv_259: (FarmlandSubsidies_BiologicalSubsidies_r10000.tif) Fractional cover of Farmland receiving Subsidies for Biological Agriculture within the 10 km landscape
+
+
+**v1 to v2b**
+
+- EGVs excluded:
+
+  - egv_093: (Distance_Sea_cell.tif) Distance to Sea, average within the analysis cell (1 ha)
+
+
+  
+- LULC change since the year of observation until the year 2024 are not used in 
+observation filtering.
+
+
+
+
+
+
+
+
+
+<!-- END USER:version_evolution -->
+
+```{r, child='templates/species-results.Rmd', warning=FALSE, message=FALSE}
+```

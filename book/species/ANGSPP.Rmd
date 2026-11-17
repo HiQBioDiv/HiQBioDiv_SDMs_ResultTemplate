@@ -1,0 +1,91 @@
+# *Anguis sp.* {- #angspp}
+
+```{r, include=FALSE, warning=FALSE, message=FALSE}
+species_code <- "ANGSPP"
+source("../R/species_helpers.R")
+
+species_result <- get_species_result(
+  species_code,
+  "../data/rezultatu_tabula.xlsx"
+)
+```
+
+## Summary {-}
+
+
+```{r, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+render_model_description(species_result)
+render_expert_scores(species_result)
+```
+
+<!-- BEGIN USER:expert_evaluation -->
+
+
+
+
+
+
+
+
+
+
+
+**Šo sadaļu aizpildām manuāli no ekspertu aptaujām**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- END USER:expert_evaluation -->
+
+```{r, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+render_statistical_summary(species_result)
+render_prioritization_summary(species_result)
+```
+
+
+
+### Version evolution {-}
+
+<!-- BEGIN USER:version_evolution -->
+
+
+
+
+
+
+
+
+
+
+
+**Šo sadaļu aizpildām manuāli, izmntojot sagatavotās shēmas. Jāvienojas par to noformējumu**
+
+
+
+
+
+
+
+
+
+
+
+<!-- END USER:version_evolution -->
+
+```{r, child='templates/species-results.Rmd', warning=FALSE, message=FALSE}
+```

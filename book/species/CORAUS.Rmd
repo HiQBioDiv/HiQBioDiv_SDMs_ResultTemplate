@@ -1,0 +1,321 @@
+# *Coronella austriaca* {- #coraus}
+
+```{r, include=FALSE, warning=FALSE, message=FALSE}
+species_code <- "CORAUS"
+source("../R/species_helpers.R")
+
+species_result <- get_species_result(
+  species_code,
+  "../data/rezultatu_tabula.xlsx"
+)
+```
+
+## Summary {-}
+
+
+```{r, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+render_model_description(species_result)
+render_expert_scores(species_result)
+```
+
+<!-- BEGIN USER:expert_evaluation -->
+
+
+
+
+
+
+
+
+
+
+**Šo sadaļu aizpildām manuāli no ekspertu aptaujām**
+
+
+The model was considered ecologically plausible overall. Although the main 
+predictors showed relatively large uncertainty, no clearly uninterpretable 
+response relationships were identified. The habitat-suitability map agreed very 
+well with expert knowledge: known and field-tested locations were classified 
+appropriately, and no obviously implausible suitability patterns were evident. 
+Some small predicted hotspots occurred outside the currently known range, but 
+these were considered reasonable because the model included all known occurrences 
+while also identifying a plausible amount of potentially suitable habitat beyond 
+the presently documented distribution. The map was considered suitable for 
+species-conservation planning when used together with other ecological 
+information, while the explanatory value of the marginal response functions 
+was somewhat more limited.
+
+Expert: Andris Čeirāns
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- END USER:expert_evaluation -->
+
+```{r, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+render_statistical_summary(species_result)
+render_prioritization_summary(species_result)
+```
+
+
+
+### Version evolution {-}
+
+<!-- BEGIN USER:version_evolution -->
+
+
+
+
+
+
+
+
+
+
+**Šo sadaļu aizpildām manuāli, izmntojot sagatavotās shēmas. Jāvienojas par to noformējumu**
+
+
+
+The following diagram describes version evolution during modelling. 
+Colour codes:
+
+- **black**: branch in version evolution from the initial EGV selection up 
+until the best version;
+
+- **green**: the final version;
+
+- **grey**: other versions.
+
+All the modifications on the black-to-green branch are described below the 
+diagram.
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, out.width='100%'}
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(DiagrammeR))
+suppressPackageStartupMessages(library(DiagrammeRsvg))
+suppressPackageStartupMessages(library(rsvg))
+
+
+coraus_shema="digraph flowchart {
+  rankdir = LR
+
+
+  # node type pamatainavas
+  node [fontname = Helvetica, shape = none,style=none,fontface=bold,fontsize=6,fontcolor=white];{
+    node [label='Pamatainavas']; level0;
+    node [label='Level 1']; level1;
+    node [label='Level 2']; level2;
+    node [label='Level 3']; level3;
+    node [label='Level 4']; level4;
+    node [label='Level 5']; level5;
+    node [label='Level 6']; level6;
+    node [label='Level 7']; level7;
+  }
+
+
+  # node type 0: grupas
+  node [fontname = Helvetica, shape = rectangle,style=rounded,fontface=bold,fontsize=30,fontcolor=black];{
+    node [label='CORAUS']; sp2;
+  }
+
+  # node type: versijas
+  node [fontname = Helvetica, shape = rectangle,style=rounded,fontface=bold,fontsize=30,fontcolor=black];{
+    node [label='v0']; v0b;
+  node [label='v1']; v1b;
+  node [label='v2b']; v2b2;
+  node [label='v2b\n(with 2025)']; v2b2025;
+  node [label='v2b\n(2014-2025)']; v2b2014;
+  }
+  
+  # node type: jaunasversijas-i
+  node [fontname = Helvetica, shape = rectangle,style=rounded,fontface=bold,fontsize=30,fontcolor=grey];{
+  node [label='v2a']; v2a2;
+  node [label='v2a\n(with 2025)']; v2a2025;
+  node [label='v2a5\n(2014-2025)']; v2a2014_5;
+  node [label='v2a\n(2014-2025)']; v2a2014;
+  node [label='v2a1\n(2014-2025)']; v2a2014_1;
+  }
+  
+  
+  # node type: previousbest
+  node [fontname = Helvetica, shape = rectangle,style=rounded,fontface=bold,fontsize=30,fontcolor=darkgreen];{
+  node [label='v2b1\n(2014-2025)']; v2b2014_1;
+  }
+
+  
+  # node type: jaunasversijas-ii
+  node [fontname = Helvetica, shape = rectangle,style=rounded,fontface=bold,fontsize=30,fontcolor=grey];{
+  node [label='v2b5\n(2014-2025)']; v2b2014_5;
+  node [label='v3b5\n(2014-2025)']; v3b2014_5;
+  node [label='v3b1\n(2014-2025)']; v3b2014_1;
+  }
+  
+  
+
+    # specify which nodes are of the same 'rank' so that they'll be drawn at the same level
+      {rank = same; level0 sp2}
+      {rank = same; level1 v0b}
+      {rank = same; level2 v1b}
+      {rank = same; level3 v2b2}
+      {rank = same; level4 v2a2025 v2b2025}
+      {rank = same; level5 v2a2014 v2b2014}
+      {rank = same; level6 v2a2014_5 v2b2014_5 v2a2014_1 v2b2014_1}
+      {rank = same; level7 v3b2014_5 v3b2014_1}
+
+    edge[tailclip = true, headclip = true,color=white,arrowhead=none];
+      level0 -> level1
+      level1 -> level2
+      level2 -> level3
+      level3 -> level4
+      level4 -> level5
+      level5 -> level6
+      level6 -> level7
+      
+    edge[tailclip = true, headclip = true,color=black,arrowhead=none];
+      sp2 -> v0b
+      v0b -> v1b
+      v1b -> v2a2
+      v1b -> v2b2
+      v2a2 -> v2a2025
+      v2b2 -> v2b2025
+      v2a2025 -> v2a2014
+      v2b2025 -> v2b2014
+      v2a2014 -> v2a2014_5
+      v2b2014 -> v2b2014_5
+      v2a2014 -> v2a2014_1
+      v2b2014 -> v2b2014_1
+      v2b2014_1 -> v3b2014_1
+      v2b2014_5 -> v3b2014_5
+
+}"
+
+species_code="CORAUS"
+graph <- DiagrammeR::grViz(coraus_shema)
+
+# Persistent output directory relative to book/
+out_dir <- file.path("figures", "version_evolution")
+
+if (!dir.exists(out_dir)) {
+  dir.create(
+    out_dir,
+    recursive = TRUE,
+    showWarnings = FALSE
+  )
+}
+
+svg_file <- file.path(
+  out_dir,
+  paste0(species_code, "_version_evolution.svg")
+)
+
+pdf_file <- file.path(
+  out_dir,
+  paste0(species_code, "_version_evolution.pdf")
+)
+
+# Always regenerate the species-specific files
+svg_txt <- DiagrammeRsvg::export_svg(graph)
+
+writeLines(
+  svg_txt,
+  svg_file
+)
+
+rsvg::rsvg_pdf(
+  svg_file,
+  pdf_file
+)
+
+# Include the appropriate version
+if (knitr::is_html_output()) {
+
+  knitr::include_graphics(svg_file)
+
+} else if (knitr::is_latex_output()) {
+
+  knitr::include_graphics(pdf_file)
+}
+```
+
+
+**v0 to v1**
+
+- EGVs excluded:
+
+  - egv_150: (Edges_Roads_cell.tif) Edge pixels of Roads within the analysis cell (1 ha)
+  
+  - egv_423: (General_ForestsWithoutInventory_cell.tif) Fractional cover of Forests Without Inventory within the analysis cell (1 ha)
+  
+  - egv_424: (General_ForestsWithoutInventory_r500.tif) Fractional cover of Forests Without Inventory within the 0.5 km landscape
+  
+  - egv_425: (General_ForestsWithoutInventory_r1250.tif) Fractional cover of Forests Without Inventory within the 1.25 km landscape
+  
+  - egv_426: (General_ForestsWithoutInventory_r3000.tif) Fractional cover of Forests Without Inventory within the 3 km landscape
+  
+  - egv_427: (General_ForestsWithoutInventory_r10000.tif) Fractional cover of Forests Without Inventory within the 10 km landscape
+  
+  - egv_255: (FarmlandSubsidies_BiologicalSubsidies_cell.tif) Fractional cover of Farmland receiving Subsidies for Biological Agriculture within the analysis cell (1 ha)
+  
+  - egv_256: (FarmlandSubsidies_BiologicalSubsidies_r500.tif) Fractional cover of Farmland receiving Subsidies for Biological Agriculture within the 0.5 km landscape
+  
+  - egv_257: (FarmlandSubsidies_BiologicalSubsidies_r1250.tif) Fractional cover of Farmland receiving Subsidies for Biological Agriculture within the 1.25 km landscape
+  
+  - egv_258: (FarmlandSubsidies_BiologicalSubsidies_r3000.tif) Fractional cover of Farmland receiving Subsidies for Biological Agriculture within the 3 km landscape
+  
+  - egv_259: (FarmlandSubsidies_BiologicalSubsidies_r10000.tif) Fractional cover of Farmland receiving Subsidies for Biological Agriculture within the 10 km landscape
+
+
+**v1 to v2b**
+
+- EGVs excluded:
+
+  - egv_093: (Distance_Sea_cell.tif) Distance to Sea, average within the analysis cell (1 ha)
+
+  
+- LULC change since the year of observation until the year 2024 are not used in 
+observation filtering.
+
+
+**v2b_cv to v2b2025_cv**
+
+- occurence records from 2025 included in the presence data
+
+
+**vb2025_cv to v2b2014_cv**
+
+- occurence records from 2014-2015 included in the presence data
+
+
+**v2b2014_cv to v2b1_2014_cv**
+
+- variable permutation importance ensured at at least 1% if not affecting TSS
+
+- ensuring bottom limitation of the bias layer at 10% of the layers global average
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- END USER:version_evolution -->
+
+```{r, child='templates/species-results.Rmd', warning=FALSE, message=FALSE}
+```

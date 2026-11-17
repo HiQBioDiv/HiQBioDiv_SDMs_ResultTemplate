@@ -1,0 +1,28 @@
+bookdown::gitbook:
+  css: style.css
+  code_folding: hide
+  config:
+    toc:
+      collapse: section
+      scroll_highlight: true
+      before: |
+        <li><a href="./">HiQBioDiv SDMs Template</a></li>
+    edit: https://github.com/HiQBioDiv/HiQBioDiv_SDMs_ResultTemplate/edit/main/book/%s
+    download: ["pdf"]
+    sharing:
+      facebook: false
+      github: false
+      twitter: false
+      linkedin: false
+      weibo: false
+      instapaper: false
+      vk: false
+      whatsapp: false
+
+bookdown::pdf_book:
+  latex_engine: xelatex
+  includes:
+    in_header: preamble.tex
+  link-citations: true    # <-- hyphen!
+  citation_package: default
+  keep_tex: true

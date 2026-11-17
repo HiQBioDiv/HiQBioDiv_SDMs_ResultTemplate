@@ -1,0 +1,9 @@
+```{r, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+render_species_results(
+  species_code = species_code,
+  species_path = "../../data/species.csv",
+  manifest_path = "../../data/result_manifest.csv",
+  project_root = "..",
+  strict = FALSE
+)
+```

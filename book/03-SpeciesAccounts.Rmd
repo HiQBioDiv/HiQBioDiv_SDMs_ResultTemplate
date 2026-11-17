@@ -1,0 +1,60 @@
+# Species accounts
+
+Species accounts are presented in a harmonised format to facilitate comparison 
+among species and model variants. Most of the content is generated automatically 
+from the modelling outputs and summary tables, while selected sections contain 
+expert-written interpretation and contextual information. Each species account 
+therefore combines model configuration, statistical evaluation, expert assessment, 
+habitat-suitability outputs, ecological associations, and conservation-prioritisation 
+results within a common structure.
+
+Each account begins with a **Summary** section that provides a concise overview 
+of the model and its evaluation. This section includes:
+
+- **Model description**, summarising the data partitioning, treatment of 
+sampling bias, land-use/land-cover change filtering, and sample sizes used for 
+model fitting and evaluation.
+
+- **Expert assessment scores**, describing the ecological interpretability of 
+marginal responses, agreement of the predicted suitability map with expert 
+knowledge, and the overall applicability of the model for conservation purposes.
+
+- **Statistical evaluation**, reporting model-discrimination and calibration 
+metrics from spatial cross-validation and, where available, an independent test dataset.
+
+- **Conservation prioritisation summary**, describing the extent of the 
+highest-priority areas and the proportion of predicted habitat suitability 
+retained within them.
+
+- **Version evolution**, documenting relevant changes between model versions 
+and, where needed, providing species-specific interpretation of modelling decisions.
+
+The **Summary** is followed by a set of standardised model outputs:
+
+- **Habitat suitability**, showing the final continuous habitat-suitability 
+prediction across Latvia.
+
+- **Model thresholds**, presenting alternative threshold values and their 
+associated omission rates.
+
+- **Variable importance**, summarising the relative contribution of predictors 
+retained in the final model.
+
+- **Marginal responses**, illustrating the modelled relationship between habitat 
+suitability and individual environmental predictors.
+
+- **Habitat and conservation associations**, comparing the distribution of 
+predicted suitability among broad land-use classes, Natura 2000 areas, protected 
+habitat groups, individual EU protected habitat types, and conservation regimes.
+
+- **Conservation prioritisation**, presenting the continuous site-priority 
+ranking, the relationship between retained apparent population and the 
+extinction-risk proxy, and the resulting stratified priority classes.
+
+Because the same structure is used throughout, differences among species accounts 
+primarily reflect differences in the underlying data, selected predictors, model 
+performance, expert assessment, and conservation-prioritisation outcomes rather 
+than differences in reporting format.
+
+All the results (figures, tables and georeferenced files) are available at 
+**taxonomic group-specific zenodo repo**.

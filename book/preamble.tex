@@ -1,0 +1,278 @@
+% ============================================================
+% HiQBioDiv Bookdown PDF preamble
+% XeLaTeX
+% ============================================================
+
+
+% ------------------------------------------------------------
+% Page layout
+% ------------------------------------------------------------
+
+\usepackage[
+  a4paper,
+  left=3cm,
+  right=3cm,
+  top=2cm,
+  bottom=2cm
+]{geometry}
+
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{graphicx}
+
+
+% ------------------------------------------------------------
+% Fonts
+% ------------------------------------------------------------
+
+\usepackage{fontspec}
+
+\XeTeXinputnormalization=1
+
+\defaultfontfeatures{
+  Ligatures=TeX,
+  Scale=MatchLowercase
+}
+
+\IfFontExistsTF{TeX Gyre Termes}
+  {\setmainfont{TeX Gyre Termes}}
+  {\setmainfont{Times New Roman}}
+
+\IfFontExistsTF{TeX Gyre Heros}
+  {\setsansfont{TeX Gyre Heros}}
+  {\setsansfont{Arial}}
+
+\IfFontExistsTF{DejaVu Sans Mono}
+  {\setmonofont{DejaVu Sans Mono}}
+  {
+    \IfFontExistsTF{Menlo}
+      {\setmonofont{Menlo}}
+      {\setmonofont{Latin Modern Mono}}
+  }
+
+
+% ------------------------------------------------------------
+% Colours
+% ------------------------------------------------------------
+
+\usepackage{xcolor}
+
+\definecolor{linkblue}{HTML}{0645AD}
+\definecolor{codebg}{HTML}{F7F7F7}
+\definecolor{codeline}{HTML}{E0E0E0}
+
+
+% ------------------------------------------------------------
+% Hyperlinks
+% ------------------------------------------------------------
+
+\PassOptionsToPackage{unicode=true}{hyperref}
+\usepackage{hyperref}
+\usepackage{xurl}
+
+\urlstyle{same}
+
+\hypersetup{
+  colorlinks=true,
+  linktoc=all,
+  linkcolor=linkblue,
+  citecolor=linkblue,
+  urlcolor=linkblue
+}
+
+
+% ------------------------------------------------------------
+% External links:
+% blue + underlined
+%
+% Internal links and citations:
+% blue, without underline
+% ------------------------------------------------------------
+
+\usepackage[normalem]{ulem}
+
+\renewcommand{\ULdepth}{1.2pt}
+\renewcommand{\ULthickness}{0.6pt}
+
+% Prevent formatting commands from appearing in PDF bookmarks
+\pdfstringdefDisableCommands{
+  \def\uline#1{#1}
+  \def\textcolor#1#2{#2}
+}
+
+\makeatletter
+
+% Formatting helpers
+\DeclareRobustCommand{\EGV@ulineblue}[1]{%
+  \begingroup
+  \color{linkblue}\uline{#1}%
+  \endgroup
+}
+
+\DeclareRobustCommand{\EGV@blue}[1]{%
+  \begingroup
+  \color{linkblue}#1%
+  \endgroup
+}
+
+% External links
+\let\EGV@oldhref\href
+\renewcommand{\href}[2]{%
+  \EGV@oldhref{#1}{\EGV@ulineblue{#2}}%
+}
+
+\let\EGV@oldurl\url
+\renewcommand{\url}[1]{%
+  \EGV@ulineblue{\EGV@oldurl{#1}}%
+}
+
+% Used by link-code Lua filter, if enabled
+\newcommand{\linkcode}[2]{%
+  \href{#2}{\texttt{#1}}%
+}
+
+% Internal links
+\let\EGV@oldhyperref\hyperref
+\renewcommand{\hyperref}[2][]{%
+  \EGV@oldhyperref[#1]{\EGV@blue{#2}}%
+}
+
+\let\EGV@oldhyperlink\hyperlink
+\renewcommand{\hyperlink}[2]{%
+  \EGV@oldhyperlink{#1}{\EGV@blue{#2}}%
+}
+
+\let\EGV@oldref\ref
+\renewcommand{\ref}[1]{%
+  \EGV@blue{\EGV@oldref{#1}}%
+}
+
+\let\EGV@oldpageref\pageref
+\renewcommand{\pageref}[1]{%
+  \EGV@blue{\EGV@oldpageref{#1}}%
+}
+
+\@ifundefined{autoref}{}{%
+  \let\EGV@oldautoref\autoref
+  \renewcommand{\autoref}[1]{%
+    \EGV@blue{\EGV@oldautoref{#1}}%
+  }%
+}
+
+\makeatother
+
+
+% ------------------------------------------------------------
+% Unicode superscripts and subscripts
+% ------------------------------------------------------------
+
+\usepackage{newunicodechar}
+
+\newunicodechar{⁰}{\textsuperscript{0}}
+\newunicodechar{¹}{\textsuperscript{1}}
+\newunicodechar{²}{\textsuperscript{2}}
+\newunicodechar{³}{\textsuperscript{3}}
+\newunicodechar{⁴}{\textsuperscript{4}}
+\newunicodechar{⁵}{\textsuperscript{5}}
+\newunicodechar{⁶}{\textsuperscript{6}}
+\newunicodechar{⁷}{\textsuperscript{7}}
+\newunicodechar{⁸}{\textsuperscript{8}}
+\newunicodechar{⁹}{\textsuperscript{9}}
+\newunicodechar{⁺}{\textsuperscript{+}}
+\newunicodechar{⁻}{\textsuperscript{-}}
+
+\newunicodechar{₀}{\textsubscript{0}}
+\newunicodechar{₁}{\textsubscript{1}}
+\newunicodechar{₂}{\textsubscript{2}}
+\newunicodechar{₃}{\textsubscript{3}}
+\newunicodechar{₄}{\textsubscript{4}}
+\newunicodechar{₅}{\textsubscript{5}}
+\newunicodechar{₆}{\textsubscript{6}}
+\newunicodechar{₇}{\textsubscript{7}}
+\newunicodechar{₈}{\textsubscript{8}}
+\newunicodechar{₉}{\textsubscript{9}}
+\newunicodechar{₊}{\textsubscript{+}}
+\newunicodechar{₋}{\textsubscript{-}}
+
+
+% ------------------------------------------------------------
+% Pandoc / Bookdown code blocks
+%
+% Use fvextra rather than listings.
+% This works correctly with XeLaTeX and Unicode.
+% ------------------------------------------------------------
+
+\usepackage{fvextra}
+
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{
+  breaklines=true,
+  breakanywhere=true,
+  breaksymbol=\tiny\ensuremath{\hookrightarrow},
+  commandchars=\\\{\},
+  showtabs=false,
+  showspaces=false,
+  fontsize=\small,
+  baselinestretch=1.0,
+  formatcom=\ttfamily,
+  frame=single,
+  rulecolor=\color{codeline},
+  framerule=0.4pt,
+  framesep=6pt,
+  bgcolor=codebg
+}
+
+% Prevent Pandoc's Shaded environment from adding another box
+\makeatletter
+\@ifundefined{Shaded}{}{%
+  \renewenvironment{Shaded}
+    {\ignorespaces}
+    {\unskip}%
+}
+\makeatother
+
+
+% ------------------------------------------------------------
+% Inline code
+% ------------------------------------------------------------
+
+\let\OldTexttt\texttt
+
+\renewcommand{\texttt}[1]{%
+  \OldTexttt{\small #1}%
+}
+
+
+% ------------------------------------------------------------
+% Page numbering
+% ------------------------------------------------------------
+
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\setlength{\headheight}{14pt}
+
+
+% ------------------------------------------------------------
+% Pandoc helpers
+% ------------------------------------------------------------
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}%
+  \setlength{\parskip}{0pt}%
+}
+
+
+% ------------------------------------------------------------
+% Help LaTeX deal with long text and URLs
+% ------------------------------------------------------------
+
+\setlength{\emergencystretch}{3em}
+\sloppy

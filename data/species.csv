@@ -1,0 +1,30 @@
+code,group,scientific_name,account_name,result_dir,sort_order
+LISVUL,Amphibia,Lissotriton vulgaris,Lissotriton vulgaris ,results/LISVULv2a,1
+LISVULterrestrial,Amphibia,Lissotriton vulgaris,Lissotriton vulgaris terrestrial,results/LISVULterrestrialv4b1,2
+LISVULlarvae,Amphibia,Lissotriton vulgaris,Lissotriton vulgaris larvae,results/LISVULlarvaev4a1,3
+TRICRI,Amphibia,Triturus cristatus,Triturus cristatus ,results/TRICRIv4a5,4
+TRICRIterrestrial,Amphibia,Triturus cristatus,Triturus cristatus terrestrial,results/TRICRIterrestrialv2b5,5
+TRICRIlarvae,Amphibia,Triturus cristatus,Triturus cristatus larvae,results/TRICRIlarvaev2b1,6
+BOMBOM,Amphibia,Bombina bombina,Bombina bombina ,results/BOMBOMv2b,7
+PELFUS,Amphibia,Pelobates fuscus,Pelobates fuscus ,results/PELFUSv2b,8
+PELFUSmonitoring,Amphibia,Pelobates fuscus,Pelobates fuscus monitoring,results/PELFUSmonitoring_v2b5,9
+BUFBUF,Amphibia,Bufo bufo,Bufo bufo ,results/BUFBUFv2bNM,10
+BUFBUFterrestrial,Amphibia,Bufo bufo,Bufo bufo terrestrial,results/BUFBUFterrestrialv2b1celi,11
+BUFBUFmonitoring,Amphibia,Bufo bufo,Bufo bufo monitoring,results/BUFBUFmonitoringv2b5celi,12
+BUFVIR,Amphibia,Bufotes viridis,Bufotes viridis ,results/BUFVIRv2a1_2025,13
+HYLORI,Amphibia,Hyla orientalis,Hyla orientalis ,results/HYLORIv4b1_2025,14
+HYLORImonitoring,Amphibia,Hyla orientalis,Hyla orientalis monitoring,results/HYLORImonitoring_v2b1,15
+RANTEM,Amphibia,Rana temporaria,Rana temporaria ,results/RANTEMv5b1NM,16
+RANTEMterrestrial,Amphibia,Rana temporaria,Rana temporaria terrestrial,results/RANTEMterrestrialv2b1celi,17
+RANTEMmonitoring,Amphibia,Rana temporaria,Rana temporaria monitoring,results/RANTEMmonitoring_v2b1,18
+RANARV,Amphibia,Rana arvalis,Rana arvalis ,results/RANARVv4a1,19
+RANARVterrestrial,Amphibia,Rana arvalis,Rana arvalis terrestrial,results/RANARVterrestrialv2b1celi,20
+RANARVmonitoring,Amphibia,Rana arvalis,Rana arvalis monitoring,results/RANARVmonitoringv2b5celi,21
+PELSPP,Amphibia,Pelophylax sp.,Pelophylax sp. ,results/PELSPPv3b,22
+PELSPPmonitoring,Amphibia,Pelophylax sp.,Pelophylax sp. monitoring,results/PELSPPmonitoring_v2b1,23
+LACAGI,Reptilia,Lacerta agilis,Lacerta agilis,results/LACAGIv2b,24
+ZOOVIV,Reptilia,Zootoca vivipara,Zootoca vivipara,results/ZOOVIVv3b1,25
+CORAUS,Reptilia,Coronella austriaca,Coronella austriaca,results/CORAUSv2b1_2014_cv,26
+NATNAT,Reptilia,Natrix natrix,Natrix natrix,results/NATNATv2b,27
+VIPBER,Reptilia,Vipera berus,Vipera berus,results/VIPBERv2a5,28
+ANGSPP,Reptilia,Anguis sp.,Anguis sp.,results/ANGSPPv2b,29
