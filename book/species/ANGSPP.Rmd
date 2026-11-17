@@ -30,7 +30,9 @@ render_expert_scores(species_result)
 
 
 
+
 **Šo sadaļu aizpildām manuāli no ekspertu aptaujām**
+
 
 
 
@@ -73,7 +75,9 @@ render_prioritization_summary(species_result)
 
 
 
+
 **Šo sadaļu aizpildām manuāli, izmntojot sagatavotās shēmas. Jāvienojas par to noformējumu**
+
 
 
 
