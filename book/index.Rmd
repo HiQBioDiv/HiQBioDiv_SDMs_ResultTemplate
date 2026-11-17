@@ -60,6 +60,34 @@ bookdown::render_book("index.Rmd",
 ```
 
 
+
+# HiQBioDiv SDM Results Template
+
+Template repository for HiQBioDiv species-distribution modelling result books.
+
+## Repository structure
+
+- `book/` — Bookdown source
+- `book/species/` — automatically generated species accounts
+- `book/templates/` — species-account templates
+- `data/species.csv` — species/account metadata
+- `data/result_manifest.csv` — expected model outputs
+- `R/` — rendering and helper functions
+- `docs/` — rendered website published through GitHub Pages
+- `render_book.R` — complete synchronisation and rendering workflow
+
+## Creating a new result repository
+
+1. Create a new repository using this repository as a GitHub template.
+2. Update `data/species.csv`.
+3. Configure the result directories.
+4. Run:
+
+```r
+source("render_book.R")
+```
+
+
 Ik sugu grupai manuāli koriģējamās vietas:
 
 - Rmd
